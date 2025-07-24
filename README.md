@@ -18,3 +18,4 @@ This project introduces EHAA, a novel AI architecture implementing ethical hesit
 4. `ehaa_randomizer.html` – Pause vs Act randomized resolution
 5. `ehaa_interface_mock.html` – Mockup interface for public testing
 
+For the complete technical analysis, see the [full report](docs/EHAA%20Framework%20Research%20Report.pdf).
