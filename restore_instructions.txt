@@ -1,0 +1,4 @@
+To restore this repo:
+1. Unzip all contents.
+2. Upload to GitHub via drag-and-drop or Git CLI.
+3. Confirm README.md is displayed on main page.
