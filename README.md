@@ -20,5 +20,8 @@ This project introduces EHAA, a novel AI architecture implementing ethical hesit
 
 > “EHAA demonstrates a unique intersection of ethical control, user autonomy, and playful unpredictability. The framework is sound.”  For the complete technical analysis, see the [full report](docs/EHAA%20Framework%20Research%20Report_.pdf).
 
+### Warm Refusals
+EHAA refuses impossible or unethical requests with **self-mocking humor** (joke is always on the AI).  
+See `src/humor_gen.py` and run `pytest tests/test_humor_gen.py` to verify.
 
 
