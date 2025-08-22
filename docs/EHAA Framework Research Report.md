@@ -2,6 +2,8 @@
 
 ## **I. Executive Summary**
 
+![EHAA](EHAA_Image.png)
+
 The Ethically Hilarious Agent Architecture (EHAA) represents a transformative paradigm for human-AI interaction, particularly in the critical domain of AI refusals. Built upon three foundational pillars—Truthfulness, Moral Hesitation (Sacred Pause), and Respectful Humor—EHAA is designed to navigate complex ethical landscapes, mitigate user frustration, and foster profound trust through nuanced, culturally sensitive communication. This framework moves beyond the limitations of current AI refusal mechanisms, which often result in disengagement and dissatisfaction, by integrating rigorous ethical principles with empathetic and engaging responses. EHAA's commitment to avoiding hallucinations, employing deliberate ethical pauses, and utilizing self-deprecating humor paired with empowering alternatives positions it as a robust and beneficial standard for future AI design.
 
 ## **II. Introduction to Ethically Hilarious Agent Architecture (EHAA)**
