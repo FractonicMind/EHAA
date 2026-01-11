@@ -1,5 +1,7 @@
 # EHAA (Ethical-Hesitation Agent Architecture)
 
+[image](docs/EHAA_Image.png)
+
 ## Overview
 This project introduces EHAA, a novel AI architecture implementing ethical hesitation and human-centered safeguards.
 
