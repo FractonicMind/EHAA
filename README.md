@@ -1,6 +1,6 @@
 # EHAA (Ethical-Hesitation Agent Architecture)
 
-([docs/EHAA_Image.png](https://github.com/FractonicMind/EHAA/blob/main/docs/EHAA_Image.png))
+![EHAA Image](https://github.com/FractonicMind/EHAA/raw/main/docs/EHAA_Image.png)
 
 ## Overview
 This project introduces EHAA, a novel AI architecture implementing ethical hesitation and human-centered safeguards.
