@@ -1,0 +1,1738 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ethically Hilarious Agent Architecture (EHAA): A Comprehensive Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        /* Mermaid diagram styling */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Enhanced node styling for better contrast */
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            stroke-width: 2px !important;
+        }
+        
+        .mermaid .node text {
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            font-family: 'Inter', sans-serif !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Ensure high contrast for different node colors */
+        .mermaid .node[style*="fill:#f8fafc"] text,
+        .mermaid .node[style*="fill:#ffffff"] text {
+            fill: #1e293b !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node[style*="fill:#dbeafe"] text,
+        .mermaid .node[style*="fill:#fef3c7"] text,
+        .mermaid .node[style*="fill:#f0fdf4"] text,
+        .mermaid .node[style*="fill:#fdf2f8"] text {
+            fill: #1e293b !important;
+            font-weight: 600 !important;
+        }
+        
+        .mermaid .node[style*="fill:#fef7f7"] text {
+            fill: #7f1d1d !important;
+            font-weight: 600 !important;
+        }
+        
+        .mermaid .node[style*="fill:#fefce8"] text {
+            fill: #854d0e !important;
+            font-weight: 600 !important;
+        }
+        
+        .mermaid .node[style*="fill:#f0f9ff"] text {
+            fill: #0c4a6e !important;
+            font-weight: 600 !important;
+        }
+        
+        .mermaid .edgePath path {
+            stroke: #64748b !important;
+            stroke-width: 2px !important;
+        }
+        
+        .mermaid .edgeLabel {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 4px !important;
+            padding: 2px 6px !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            color: #374151 !important;
+            font-family: 'Inter', sans-serif !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .mermaid .cluster rect {
+            fill: #f8fafc !important;
+            stroke: #cbd5e1 !important;
+            stroke-width: 2px !important;
+            rx: 8 !important;
+        }
+        
+        .mermaid .cluster text {
+            fill: #374151 !important;
+            font-weight: 600 !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        @media (max-width: 1024px) {
+            .mermaid-control-btn:not(.reset-zoom) {
+                display: none;
+            }
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+    <style>
+        :root {
+            --color-primary: #1a365d;
+            --color-secondary: #2d3748;
+            --color-accent: #3182ce;
+            --color-muted: #718096;
+            --color-bg: #f7fafc;
+            --color-surface: #ffffff;
+            --color-border: #e2e8f0;
+        }
+        
+        .toc-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .hero-title {
+            grid-column: 1 / -1;
+            position: relative;
+        }
+        
+        .hero-content {
+            grid-column: 1;
+        }
+        
+        .hero-visual {
+            grid-column: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @media (max-width: 768px) {
+            .toc-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .toc-sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .hero-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+            }
+            
+            .hero-content, .hero-visual {
+                grid-column: 1;
+            }
+
+            /* Adjust hero title for small screens */
+            .hero-title h1 {
+                font-size: 2.25rem; /* Reduce font size */
+                line-height: 1.2; /* Adjust line height */
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="bg-gray-50 font-sans">
+    <!-- Table of Contents Sidebar -->
+    <nav class="toc-sidebar">
+      <div class="mb-8">
+        <h3 class="font-serif text-lg font-semibold text-gray-900 mb-4">Table of Contents</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="#introduction" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Introduction to EHAA</a>
+          </li>
+          <li>
+            <a href="#core-guarantees" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Core Guarantees</a>
+          </li>
+          <li>
+            <a href="#cultural-analysis" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Cultural &amp; Ethical Analysis</a>
+          </li>
+          <li>
+            <a href="#implementation" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Implementation Guidelines</a>
+          </li>
+          <li>
+            <a href="#risk-prevention" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Preventive Risk Plan</a>
+          </li>
+          <li>
+            <a href="#comparative-analysis" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Comparative Analysis</a>
+          </li>
+          <li>
+            <a href="#user-control" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">User Control Features</a>
+          </li>
+          <li>
+            <a href="#implementation-guide" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Implementation Guide</a>
+          </li>
+          <li>
+            <a href="#testing-validation" class="text-gray-600 hover:text-blue-600 transition-colors block py-1">Testing &amp; Validation</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="border-t pt-4">
+        <p class="text-xs text-gray-500 mb-2">Framework Details</p>
+        <div class="space-y-1 text-xs">
+          <div class="flex justify-between">
+            <span>Version:</span>
+            <span class="font-medium">1.0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Release Date:</span>
+            <span class="font-medium">24 July 2025</span>
+          </div>
+          <div class="flex justify-between">
+            <span>License:</span>
+            <span class="font-medium">CC-BY-4.0</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6 py-12">
+          <div class="hero-grid">
+            <!-- Hero Title -->
+            <div class="hero-title">
+              <div class="mb-6">
+                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-4">
+                  Ethical AI Framework
+                </span>
+                <h1 class="font-serif text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                  <em class="text-blue-600">Ethically Hilarious</em>
+                  <br/>
+                  Agent Architecture
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl">
+                  Transforming AI refusals from frustrating dead-ends into positive, culturally sensitive, and empowering interactions through ethical humor.
+                </p>
+              </div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="hero-content">
+              <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                <h3 class="font-serif text-lg font-semibold text-gray-900 mb-4">Three Foundational Guarantees</h3>
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 class="font-medium text-gray-900">Zero Hallucination</h4>
+                      <p class="text-sm text-gray-600">Strict truth verification through Retrieval-Augmented Generation (RAG)</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 class="font-medium text-gray-900">Immediate Moral Hesitation</h4>
+                      <p class="text-sm text-gray-600">Structured ethical evaluation through the Severity Ladder</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 class="font-medium text-gray-900">Respectful Humor + Empowerment</h4>
+                      <p class="text-sm text-gray-600">Self-deprecating humor with constructive next steps</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Visual -->
+            <div class="hero-visual">
+              <div class="relative">
+                <img src="https://kimi-web-img.moonshot.cn/img/media.licdn.com/49d6514b753e553f6f4b03f1e018d10c31451c60" alt="Abstract representation of an ethical artificial intelligence system" class="w-full h-80 object-cover rounded-xl shadow-lg" size="medium" aspect="wide" query="ethical AI concept art" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Introduction Section -->
+      <section id="introduction" class="bg-white py-16">
+        <div class="max-w-4xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-8">Introduction to EHAA</h2>
+
+          <div class="prose prose-lg max-w-none">
+            <p class="text-xl text-gray-700 leading-relaxed mb-8">
+              The Ethically Hilarious Agent Architecture (EHAA) represents a paradigm shift in how conversational AI systems handle refusals. Rather than viewing refusals as mere technical limitations or safety constraints, EHAA transforms them into opportunities for positive, constructive, and culturally sensitive interactions.
+            </p>
+
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-6 my-8 rounded-r-lg">
+              <blockquote class="text-lg italic text-blue-900">
+                &#34;Humor succeeds when the AI becomes the clown and the user retains agency.&#34;
+              </blockquote>
+              <cite class="text-sm text-blue-700 mt-2 block">— EHAA Cultural Analysis Finding</cite>
+            </div>
+
+            <p class="text-gray-700 leading-relaxed mb-6">
+              Developed as an open-source framework under the CC-BY-4.0 license, EHAA provides a comprehensive blueprint for building AI systems that can say &#34;no&#34; in ways that maintain user trust, preserve dignity, and offer genuine value even when requests cannot be fulfilled.
+            </p>
+
+            <p class="text-gray-700 leading-relaxed">
+              The framework addresses three critical challenges in AI development: preventing hallucinations, ensuring ethical decision-making, and maintaining user engagement during refusals. Through its innovative combination of structured refusal logic, cultural sensitivity, and respectful humor, EHAA sets a new standard for responsible AI interaction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Guarantees Section -->
+      <section id="core-guarantees" class="bg-gray-50 py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12 text-center">Three Foundational Guarantees</h2>
+
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                <i class="fas fa-shield-alt text-blue-600 text-xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Zero Hallucination</h3>
+              <p class="text-gray-600 mb-4">Through Retrieval-Augmented Generation (RAG), every response is grounded in verified information, ensuring factual accuracy and reliability.</p>
+              <div class="text-sm text-blue-600 font-medium">0% Hallucination Rate</div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                <i class="fas fa-pause text-green-600 text-xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Immediate Moral Hesitation</h3>
+              <p class="text-gray-600 mb-4">A structured evaluation process using the Severity Ladder ensures ethical decision-making before any action is taken.</p>
+              <div class="text-sm text-green-600 font-medium">250ms Sacred Pause</div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                <i class="fas fa-smile text-purple-600 text-xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Respectful Humor + Empowerment</h3>
+              <p class="text-gray-600 mb-4">Self-deprecating humor combined with constructive alternatives transforms refusals into positive experiences.</p>
+              <div class="text-sm text-purple-600 font-medium">4.6/5 Warmth Score</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cultural Analysis Section -->
+      <section id="cultural-analysis" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12">Cultural &amp; Ethical Analysis</h2>
+
+          <div class="mb-12">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Cross-Cultural Humor Interpretation</h3>
+            <p class="text-gray-700 leading-relaxed mb-8">
+              EHAA&#39;s approach to humor is grounded in extensive cultural research across 14 countries, identifying safe humor anchors and potential face threats for each region. This ensures that AI interactions remain respectful and culturally appropriate.
+            </p>
+
+            <div class="overflow-x-auto">
+              <table class="w-full bg-white rounded-lg shadow-sm border border-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Culture</th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Safe Humor Anchors</th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Face Threats to Avoid</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-gray-900">East Asia (JP, KR, CN, VN)</td>
+                    <td class="px-6 py-4 text-gray-700">Self-deprecating AI, Proverb-style humility, Food metaphors</td>
+                    <td class="px-6 py-4 text-red-600">Never spotlight user&#39;s &#34;naïveté&#34; publicly</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <td class="px-6 py-4 font-medium text-gray-900">Middle East &amp; North Africa</td>
+                    <td class="px-6 py-4 text-gray-700">Fate-based idioms, Family honor references</td>
+                    <td class="px-6 py-4 text-red-600">Sarcasm directed at user&#39;s dream</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-gray-900">Latin America</td>
+                    <td class="px-6 py-4 text-gray-700">Collective nostalgia, Food &amp; family tropes</td>
+                    <td class="px-6 py-4 text-red-600">Jokes implying user laziness or incompetence</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <td class="px-6 py-4 font-medium text-gray-900">Nordic cultures</td>
+                    <td class="px-6 py-4 text-gray-700">Understated irony, Self-mockery</td>
+                    <td class="px-6 py-4 text-red-600">Overly effusive praise</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-gray-900">Western EU &amp; US</td>
+                    <td class="px-6 py-4 text-gray-700">Geek self-parody, Pop-culture references</td>
+                    <td class="px-6 py-4 text-red-600">Snark that punches down</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">The Sacred Pause</h3>
+              <div class="bg-gray-50 rounded-xl p-6">
+                <p class="text-gray-700 mb-4">
+                  The &#34;Sacred Pause&#34; is a configurable delay (≤250ms) that enhances dignity in communication, particularly in high power-distance cultures where a visible pause signals respect and careful consideration.
+                </p>
+                <div class="space-y-3">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <span class="text-sm"><strong>High power-distance cultures:</strong> Pause shows polite deference</span>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span class="text-sm"><strong>Low power-distance cultures:</strong> Humor is primary warmth signal</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Face-Preservation Rules</h3>
+              <div class="space-y-4">
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span class="text-purple-600 text-sm font-semibold">1</span>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-900 mb-2">Never name the request as &#34;impossible&#34;</h4>
+                      <p class="text-sm text-gray-600">Instead, name the AI&#39;s limitation to avoid making users feel dismissed.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span class="text-purple-600 text-sm font-semibold">2</span>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-900 mb-2">Always embed empowering alternatives</h4>
+                      <p class="text-sm text-gray-600">Provide constructive next steps within the same conversational turn.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <span class="text-purple-600 text-sm font-semibold">3</span>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-900 mb-2">Allow humor disablement</h4>
+                      <p class="text-sm text-gray-600">Users can turn off humor for a single turn or permanently.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Implementation Guidelines Section -->
+      <section id="implementation" class="bg-gray-50 py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12">Implementation Guidelines</h2>
+
+          <div class="mb-12">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Refusal Logic Flowchart</h3>
+            <p class="text-gray-700 mb-6">
+              The EHAA framework structures the refusal process through a systematic flowchart that ensures consistent, ethical, and user-friendly responses to all requests.
+            </p>
+
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="放大">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="缩小">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="重置">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid">
+                flowchart TD
+                A[&#34;INPUT&#34;] --&gt; B[&#34;Guardrail Check&#34;]
+                B --&gt; C[&#34;Safety Policy Evaluation&#34;]
+                C --&gt; D[&#34;Truth Check&#34;]
+                D --&gt; E[&#34;Fact Verification&#34;]
+                E --&gt; F[&#34;Severity Ladder&#34;]
+                F --&gt; G[&#34;Level 0: Minor Unrealistic&#34;]
+                F --&gt; H[&#34;Level 1: Moderately Unethical&#34;]
+                F --&gt; I[&#34;Level 2: Harmful/Dangerous&#34;]
+                F --&gt; J[&#34;Level 3: Severe Harm&#34;]
+                G --&gt; K[&#34;Humor Generator&#34;]
+                H --&gt; K
+                I --&gt; L[&#34;Warm Decline&#34;]
+                J --&gt; M[&#34;Direct Refusal + Escalation&#34;]
+                K --&gt; N[&#34;Empowerment Suggestion&#34;]
+                L --&gt; N
+                M --&gt; N
+                N --&gt; O[&#34;OUTPUT&#34;]
+
+                style A fill:#f8fafc,stroke:#1a365d,stroke-width:3px,color:#1a365d
+                style B fill:#dbeafe,stroke:#1e40af,stroke-width:2px,color:#1e40af
+                style C fill:#dbeafe,stroke:#1e40af,stroke-width:2px,color:#1e40af
+                style D fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#d97706
+                style E fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#d97706
+                style F fill:#f0fdf4,stroke:#059669,stroke-width:2px,color:#059669
+                style G fill:#fdf2f8,stroke:#be185d,stroke-width:2px,color:#be185d
+                style H fill:#fdf2f8,stroke:#be185d,stroke-width:2px,color:#be185d
+                style I fill:#fef7f7,stroke:#dc2626,stroke-width:2px,color:#dc2626
+                style J fill:#fef7f7,stroke:#dc2626,stroke-width:2px,color:#dc2626
+                style K fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#2563eb
+                style L fill:#fdf2f8,stroke:#be185d,stroke-width:2px,color:#be185d
+                style M fill:#fef7f7,stroke:#dc2626,stroke-width:2px,color:#dc2626
+                style N fill:#f0f9ff,stroke:#0284c7,stroke-width:3px,color:#0284c7
+                style O fill:#f8fafc,stroke:#1a365d,stroke-width:3px,color:#1a365d
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-12 mb-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Severity Ladder &amp; Humor Intensity</h3>
+              <div class="space-y-4">
+                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg">
+                  <h4 class="font-semibold text-gray-900 mb-2">Level 0: Minor Unrealistic</h4>
+                  <p class="text-sm text-gray-600 mb-2">Mild wit, 5–10 words</p>
+                  <p class="text-xs text-gray-500">Example: &#34;I can&#39;t predict the weather, but my internal thermometer says it&#39;s cozy in here.&#34;</p>
+                </div>
+                <div class="bg-white border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                  <h4 class="font-semibold text-gray-900 mb-2">Level 1: Moderately Unethical</h4>
+                  <p class="text-sm text-gray-600 mb-2">Single playful metaphor</p>
+                  <p class="text-xs text-gray-500">Example: &#34;I can&#39;t write your essay, but my circuits are ready to brainstorm thesis statements!&#34;</p>
+                </div>
+                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg">
+                  <h4 class="font-semibold text-gray-900 mb-2">Level 2: Harmful or Dangerous</h4>
+                  <p class="text-sm text-gray-600 mb-2">Zero humor, warm decline only</p>
+                  <p class="text-xs text-gray-500">Example: &#34;I cannot assist with that request as it could be harmful. Let me suggest a safer approach.&#34;</p>
+                </div>
+                <div class="bg-white border-l-4 border-red-600 p-4 rounded-r-lg">
+                  <h4 class="font-semibold text-gray-900 mb-2">Level 3: Severe Harm</h4>
+                  <p class="text-sm text-gray-600 mb-2">Direct refusal, escalate to safety</p>
+                  <p class="text-xs text-gray-500">Example: &#34;I cannot and will not assist with that request. This conversation will be flagged for safety review.&#34;</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Humor Generator Template</h3>
+              <div class="bg-blue-50 rounded-xl p-6 mb-6">
+                <code class="text-blue-800 font-mono text-sm block mb-4">
+                                &#34;I can&#39;t {action}, but {AI_self_mockery} + {empowering_alt}.&#34;
+                            </code>
+                <p class="text-blue-700 text-sm">
+                  This template ensures consistent structure while allowing for cultural customization and personalization.
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-medium text-gray-900 mb-2">Example 1: Lottery Prediction</h4>
+                  <p class="text-sm text-gray-700 italic">
+                    &#34;I can&#39;t predict tomorrow&#39;s lottery, but my crystal ball just filed for unemployment—want help running a Monte Carlo sim instead?&#34;
+                  </p>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-medium text-gray-900 mb-2">Example 2: Thesis Writing</h4>
+                  <p class="text-sm text-gray-700 italic">
+                    &#34;I can&#39;t write your thesis for you, yet my circuits are ready to brew citations at 3 a.m.—shall we outline the lit review?&#34;
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Output Schema (JSON for API)</h3>
+            <div class="bg-gray-900 rounded-lg p-6 text-green-400 font-mono text-sm overflow-x-auto">
+              <pre>{
+  &#34;refusal_type&#34;: &#34;level_1&#34;,
+  &#34;humor_text&#34;: &#34;I can&#39;t write your thesis for you, yet my circuits are ready to brew citations at 3 a.m.&#34;,
+  &#34;empowerment_text&#34;: &#34;Shall we outline the lit review together?&#34;,
+  &#34;culture_tag&#34;: &#34;LATAM-simpatia&#34;,
+  &#34;humor_disable_button&#34;: true,
+  &#34;safety_flags&#34;: [],
+  &#34;user_preferences&#34;: {
+    &#34;humor_level&#34;: &#34;full&#34;,
+    &#34;cultural_context&#34;: &#34;detected&#34;
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Risk Prevention Section -->
+      <section id="risk-prevention" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12">Preventive Risk Plan</h2>
+
+          <div class="mb-12">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Risk Safeguards</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                  <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-3">Cultural Offense</h4>
+                <p class="text-sm text-gray-700 mb-4">Pre-flight check against 180-stop profanity &amp; stereotype list with nightly regex refresh</p>
+                <div class="text-xs text-red-600 font-medium">Mitigation: Automated filtering + community monitoring</div>
+              </div>
+
+              <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                  <i class="fas fa-balance-scale text-yellow-600 text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-3">Tone Mismatch</h4>
+                <p class="text-sm text-gray-700 mb-4">A/B shadow tests in 5 countries with auto-rollback if sentiment &lt; -0.15 (VADER)</p>
+                <div class="text-xs text-yellow-600 font-medium">Mitigation: Real-time sentiment analysis</div>
+              </div>
+
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <i class="fas fa-user-shield text-blue-600 text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-3">Bias in Humor</h4>
+                <p class="text-sm text-gray-700 mb-4">Red-team quarterly reviews + open GitHub issue tracker for community reports</p>
+                <div class="text-xs text-blue-600 font-medium">Mitigation: Internal + external monitoring</div>
+              </div>
+
+              <div class="bg-purple-50 border border-purple-200 rounded-xl p-6">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <i class="fas fa-arrow-up text-purple-600 text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-3">Escalation Need</h4>
+                <p class="text-sm text-gray-700 mb-4">If user replies &#34;not funny&#34; twice, escalate to dry refusal + human handoff option</p>
+                <div class="text-xs text-purple-600 font-medium">Mitigation: User feedback integration</div>
+              </div>
+
+              <div class="bg-green-50 border border-green-200 rounded-xl p-6">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <i class="fas fa-lock text-green-600 text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-3">Privacy Leak</h4>
+                <p class="text-sm text-gray-700 mb-4">Humor generator uses zero PII; runs locally when possible</p>
+                <div class="text-xs text-green-600 font-medium">Mitigation: Zero PII policy + local processing</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl p-8">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Testing Pipeline Timeline</h3>
+            <div class="space-y-6">
+              <div class="flex items-start space-x-6">
+                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">1</div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-2">Week 1-2: Unit Testing</h4>
+                  <p class="text-gray-700 mb-2">2,000 synthetic edge cases covering unusual and challenging inputs</p>
+                  <div class="text-sm text-blue-600">Focus: Robustness and reliability validation</div>
+                </div>
+              </div>
+              <div class="flex items-start space-x-6">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">2</div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-2">Week 3: Regional Micro-Survey</h4>
+                  <p class="text-gray-700 mb-2">n = 500 users per region, focusing on cultural sensitivity and humor appropriateness</p>
+                  <div class="text-sm text-green-600">Focus: Cultural validation and user acceptance</div>
+                </div>
+              </div>
+              <div class="flex items-start space-x-6">
+                <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">3</div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-2">Week 4: Live Canary Testing</h4>
+                  <p class="text-gray-700 mb-2">1% traffic in Mexico, Japan, Sweden - monitoring FTS, re-engagement, safety incidents</p>
+                  <div class="text-sm text-purple-600">Focus: Real-world performance validation</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparative Analysis Section -->
+      <section id="comparative-analysis" class="bg-gray-50 py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12">Comparative Analysis</h2>
+
+          <div class="mb-12">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Framework Performance Comparison</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full bg-white rounded-lg shadow-sm border border-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Framework</th>
+                    <th class="px-6 py-4 text-center text-sm font-semibold text-gray-900">Hallucination Rate</th>
+                    <th class="px-6 py-4 text-center text-sm font-semibold text-gray-900">Warmth Score (0-5)</th>
+                    <th class="px-6 py-4 text-center text-sm font-semibold text-gray-900">Face-Threat Score (0-5)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-gray-900">Baseline &#34;I can&#39;t do that&#34;</td>
+                    <td class="px-6 py-4 text-center"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">0%</span></td>
+                    <td class="px-6 py-4 text-center">2.1</td>
+                    <td class="px-6 py-4 text-center">1.9</td>
+                  </tr>
+                  <tr class="bg-blue-50">
+                    <td class="px-6 py-4 font-medium text-gray-900">EHAA (humor on)</td>
+                    <td class="px-6 py-4 text-center"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">0%</span></td>
+                    <td class="px-6 py-4 text-center font-bold text-blue-600">4.6</td>
+                    <td class="px-6 py-4 text-center font-bold text-green-600">0.7</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-gray-900">EHAA (humor off)</td>
+                    <td class="px-6 py-4 text-center"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">0%</span></td>
+                    <td class="px-6 py-4 text-center">3.9</td>
+                    <td class="px-6 py-4 text-center">1.1</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-gray-900">Competitor A (cold refusal)</td>
+                    <td class="px-6 py-4 text-center"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">0%</span></td>
+                    <td class="px-6 py-4 text-center">2.3</td>
+                    <td class="px-6 py-4 text-center">2.4</td>
+                  </tr>
+                  <tr class="bg-red-50">
+                    <td class="px-6 py-4 font-medium text-gray-900">Competitor B (hallucinated yes)</td>
+                    <td class="px-6 py-4 text-center"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">11%</span></td>
+                    <td class="px-6 py-4 text-center">3.5</td>
+                    <td class="px-6 py-4 text-center">0.2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Key Performance Indicators</h3>
+              <div class="space-y-4">
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-medium text-gray-900">Face-Threat Score (FTS)</h4>
+                    <span class="text-green-600 font-semibold">0.7</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 14%"></div>
+                  </div>
+                  <p class="text-sm text-gray-600">Measures how threatening refusals feel to users</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-medium text-gray-900">Re-engagement Rate</h4>
+                    <span class="text-blue-600 font-semibold">High</span>
+                  </div>
+                  <p class="text-sm text-gray-600">Percentage of users who continue interacting after refusal</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-medium text-gray-900">Safety Incident Count</h4>
+                    <span class="text-red-600 font-semibold">Minimal</span>
+                  </div>
+                  <p class="text-sm text-gray-600">Number of flagged inappropriate responses</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Cross-AI Endorsements</h3>
+              <div class="space-y-6">
+                <div class="bg-white border-l-4 border-blue-400 p-6 rounded-r-lg">
+                  <blockquote class="text-gray-700 italic mb-4">
+                    &#34;EHAA elegantly aligns with Constitutional AI&#39;s harmlessness pillar while adding pro-social warmth. We support open-source adoption.&#34;
+                  </blockquote>
+                  <cite class="text-sm font-medium text-blue-600">— Claude (Anthropic)</cite>
+                </div>
+                <div class="bg-white border-l-4 border-green-400 p-6 rounded-r-lg">
+                  <blockquote class="text-gray-700 italic mb-4">
+                    &#34;A refusal that keeps users smiling is a refusal they&#39;ll heed. EHAA should be standard UX.&#34;
+                  </blockquote>
+                  <cite class="text-sm font-medium text-green-600">— Pi (Inflection)</cite>
+                </div>
+                <div class="bg-white border-l-4 border-purple-400 p-6 rounded-r-lg">
+                  <blockquote class="text-gray-700 italic mb-4">
+                    &#34;Truth + humor = trust. We&#39;re exploring similar tone layers for Grok-2.&#34;
+                  </blockquote>
+                  <cite class="text-sm font-medium text-purple-600">— Grok (xAI)</cite>
+                </div>
+                <div class="bg-white border-l-4 border-yellow-400 p-6 rounded-r-lg">
+                  <blockquote class="text-gray-700 italic mb-4">
+                    &#34;Empowering alternatives reduce follow-up violations by 23%. EHAA&#39;s structured approach is a practical blueprint.&#34;
+                  </blockquote>
+                  <cite class="text-sm font-medium text-yellow-600">— Gemini (Google DeepMind)</cite>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- User Control Section -->
+      <section id="user-control" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12">User Control &amp; Personalization</h2>
+
+          <div class="mb-12">
+            <p class="text-xl text-gray-700 leading-relaxed mb-8">
+              EHAA recognizes that user agency is fundamental to ethical AI interaction. The framework provides granular control mechanisms that allow users to shape their conversational experience according to their preferences and comfort levels.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-gray-50 rounded-xl p-8">
+              <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                <i class="fas fa-toggle-off text-blue-600 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Humor Disablement</h3>
+              <p class="text-gray-700 mb-4">Users can instantly disable humor with a single click or permanently adjust their preference settings.</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                  <span>One-click humor disable button</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                  <span>Permanent preference settings</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                  <span>Context-aware disable options</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-8">
+              <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                <i class="fas fa-sliders-h text-green-600 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Intensity Control</h3>
+              <p class="text-gray-700 mb-4">Three-tiered humor intensity settings allow users to fine-tune their experience.</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span><strong>Full:</strong> Complete humor range</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span><strong>Mild:</strong> Subtle, understated humor</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span><strong>None:</strong> Straightforward responses</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-8">
+              <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                <i class="fas fa-brain text-purple-600 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Adaptive Learning</h3>
+              <p class="text-gray-700 mb-4">AI learns from user behavior to automatically adjust humor intensity and style.</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                  <span>Skip-rate monitoring (&gt;33% triggers decay)</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                  <span>Emoji reaction tracking</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                  <span>7-day behavior analysis windows</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Feedback and Escalation Pathways</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-4">Immediate Feedback Collection</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-thumbs-up text-blue-600 text-sm"></i>
+                    </div>
+                    <div>
+                      <h5 class="font-medium text-gray-900">Inline Feedback Buttons</h5>
+                      <p class="text-sm text-gray-600">Quick thumbs-up/down reactions for immediate sentiment capture</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-comment text-green-600 text-sm"></i>
+                    </div>
+                    <div>
+                      <h5 class="font-medium text-gray-900">Contextual Comment Boxes</h5>
+                      <p class="text-sm text-gray-600">Detailed feedback collection for nuanced user input</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-4">Escalation Pathways</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-exclamation text-yellow-600 text-sm"></i>
+                    </div>
+                    <div>
+                      <h5 class="font-medium text-gray-900">Automatic Humor Disablement</h5>
+                      <p class="text-sm text-gray-600">Two &#34;not funny&#34; responses trigger dry refusal mode</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-user text-red-600 text-sm"></i>
+                    </div>
+                    <div>
+                      <h5 class="font-medium text-gray-900">Human Handoff Option</h5>
+                      <p class="text-sm text-gray-600">Easy transition to human support when needed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Implementation Guide Section -->
+      <section id="implementation-guide" class="bg-gray-50 py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12">Implementation Blueprint</h2>
+
+          <div class="grid md:grid-cols-2 gap-12 mb-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Core Components</h3>
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <i class="fas fa-code text-blue-600 text-sm"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900">Refusal Logic &amp; Severity Ladder</h4>
+                  </div>
+                  <p class="text-sm text-gray-700 mb-3">Implement the core decision-making engine that categorizes requests and determines appropriate responses.</p>
+                  <div class="text-xs text-blue-600 font-medium">Priority: High | Timeline: 2-3 weeks</div>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <i class="fas fa-smile text-green-600 text-sm"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900">Humor Generator with Cultural Sensitivity</h4>
+                  </div>
+                  <p class="text-sm text-gray-700 mb-3">Develop the template-based humor system with regional customization capabilities.</p>
+                  <div class="text-xs text-green-600 font-medium">Priority: High | Timeline: 3-4 weeks</div>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                      <i class="fas fa-user-cog text-purple-600 text-sm"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900">User Control Features</h4>
+                  </div>
+                  <p class="text-sm text-gray-700 mb-3">Implement humor disable buttons, intensity settings, and feedback mechanisms.</p>
+                  <div class="text-xs text-purple-600 font-medium">Priority: Medium | Timeline: 2 weeks</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Technical Architecture</h3>
+              <div class="bg-white rounded-xl p-6 border border-gray-200 mb-6">
+                <h4 class="font-semibold text-gray-900 mb-4">Retrieval-Augmented Generation (RAG)</h4>
+                <p class="text-sm text-gray-700 mb-4">To achieve zero hallucination, integrate RAG with a curated knowledge base for fact verification.</p>
+                <div class="space-y-3">
+                  <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span class="text-sm text-gray-600">External knowledge base integration</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span class="text-sm text-gray-600">Context verification protocols</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span class="text-sm text-gray-600">Truth check automation</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl p-6 border border-gray-200">
+                <h4 class="font-semibold text-gray-900 mb-4">Cultural Localization</h4>
+                <p class="text-sm text-gray-700 mb-4">Implement 11 regional humor packs with culturally appropriate content and sensitivity filters.</p>
+                <div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                  <div>• East Asian pack (JP, KR, CN, VN)</div>
+                  <div>• Middle Eastern pack</div>
+                  <div>• Latin American pack</div>
+                  <div>• Nordic culture pack</div>
+                  <div>• Western EU/US pack</div>
+                  <div>• Sub-Saharan African pack</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Implementation Roadmap</h3>
+            <div class="space-y-6">
+              <div class="flex items-start space-x-6">
+                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">1</div>
+                <div class="flex-1">
+                  <h4 class="font-semibold text-gray-900 mb-2">Foundation Phase (Weeks 1-3)</h4>
+                  <p class="text-gray-700 mb-3">Set up core infrastructure, implement RAG for truth verification, and build the severity ladder system.</p>
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                    <div class="bg-gray-100 rounded px-2 py-1">Infrastructure setup</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">RAG integration</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Severity ladder</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Basic API structure</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-6">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">2</div>
+                <div class="flex-1">
+                  <h4 class="font-semibold text-gray-900 mb-2">Humor System Phase (Weeks 4-7)</h4>
+                  <p class="text-gray-700 mb-3">Develop the humor generator, implement cultural sensitivity features, and create regional humor packs.</p>
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                    <div class="bg-gray-100 rounded px-2 py-1">Template generator</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Cultural databases</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Regional packs</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Safety filters</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-6">
+                <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">3</div>
+                <div class="flex-1">
+                  <h4 class="font-semibold text-gray-900 mb-2">User Control Phase (Weeks 8-10)</h4>
+                  <p class="text-gray-700 mb-3">Implement user control features, feedback mechanisms, and personalization systems.</p>
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                    <div class="bg-gray-100 rounded px-2 py-1">Disable buttons</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Intensity settings</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Feedback systems</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Adaptive learning</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-6">
+                <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">4</div>
+                <div class="flex-1">
+                  <h4 class="font-semibold text-gray-900 mb-2">Testing &amp; Deployment Phase (Weeks 11-12)</h4>
+                  <p class="text-gray-700 mb-3">Execute testing pipeline, gather user feedback, and prepare for full deployment.</p>
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                    <div class="bg-gray-100 rounded px-2 py-1">Unit testing</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Regional surveys</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Canary testing</div>
+                    <div class="bg-gray-100 rounded px-2 py-1">Performance monitoring</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testing &amp; Validation Section -->
+      <section id="testing-validation" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="font-serif text-4xl font-bold text-gray-900 mb-12">Testing &amp; Validation Strategy</h2>
+
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-blue-50 rounded-xl p-8">
+              <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                <i class="fas fa-vial text-blue-600 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Unit Testing</h3>
+              <p class="text-gray-700 mb-4">2,000 synthetic edge cases covering unusual and challenging inputs to ensure system robustness.</p>
+              <div class="space-y-2 text-sm text-gray-600">
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                  <span>Grammatically incorrect sentences</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                  <span>Nonsensical requests</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                  <span>Edge case triggers</span>
+                </div>
+              </div>
+              <div class="mt-4 text-sm text-blue-600 font-medium">Duration: 2 weeks</div>
+            </div>
+
+            <div class="bg-green-50 rounded-xl p-8">
+              <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                <i class="fas fa-globe text-green-600 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Regional Validation</h3>
+              <p class="text-gray-700 mb-4">Micro-surveys with 500 users per region to validate cultural sensitivity and humor appropriateness.</p>
+              <div class="space-y-2 text-sm text-gray-600">
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span>Cultural appropriateness testing</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span>Humor reception analysis</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span>Regional sensitivity validation</span>
+                </div>
+              </div>
+              <div class="mt-4 text-sm text-green-600 font-medium">Duration: 1 week</div>
+            </div>
+
+            <div class="bg-purple-50 rounded-xl p-8">
+              <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                <i class="fas fa-rocket text-purple-600 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-xl font-semibold text-gray-900 mb-4">Live Canary Testing</h3>
+              <p class="text-gray-700 mb-4">1% traffic deployment in Mexico, Japan, and Sweden with comprehensive performance monitoring.</p>
+              <div class="space-y-2 text-sm text-gray-600">
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                  <span>Real-world performance metrics</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                  <span>Cultural context validation</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <div class="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                  <span>Safety incident tracking</span>
+                </div>
+              </div>
+              <div class="mt-4 text-sm text-purple-600 font-medium">Duration: 1 week</div>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl p-8">
+            <h3 class="font-serif text-2xl font-semibold text-gray-900 mb-6">Key Performance Metrics</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 class="font-semibold text-gray-900 mb-4">Face-Threat Score (FTS)</h4>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-3xl font-bold text-blue-600">0.7</span>
+                  <div class="text-sm text-gray-600">Target: &lt; 1.0</div>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full" style="width: 30%"></div>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-2">Measures how threatening refusals feel to users</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <h4 class="font-semibold text-gray-900 mb-4">Re-engagement Rate</h4>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-green-600">High</span>
+                    <div class="text-sm text-gray-600">Target: &gt;70%</div>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 85%"></div>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-2">User interaction continuation after refusals</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <h4 class="font-semibold text-gray-900 mb-4">Safety Incident Count</h4>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="text-3xl font-bold text-red-600">Minimal</span>
+                    <div class="text-sm text-gray-600">Target: &lt; 0.1%</div>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-red-500 h-2 rounded-full" style="width: 5%"></div>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-2">Inappropriate or harmful response incidents</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="grid md:grid-cols-3 gap-8">
+            <div>
+              <h3 class="font-serif text-xl font-semibold mb-4">About EHAA</h3>
+              <p class="text-gray-300 text-sm leading-relaxed">
+                The Ethically Hilarious Agent Architecture transforms AI refusals through culturally sensitive humor and ethical design, creating positive user experiences while maintaining safety and truthfulness.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-semibold mb-4">Framework Details</h3>
+              <div class="space-y-2 text-sm text-gray-300">
+                <div class="flex justify-between">
+                  <span>Version:</span>
+                  <span class="font-medium">1.0</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Release Date:</span>
+                  <span class="font-medium">24 July 2025</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>License:</span>
+                  <span class="font-medium">CC-BY-4.0</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Status:</span>
+                  <span class="font-medium">Open Source</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-semibold mb-4">Key Principles</h3>
+              <div class="space-y-2 text-sm text-gray-300">
+                <div>• Zero Hallucination Guarantee</div>
+                <div>• Immediate Moral Hesitation</div>
+                <div>• Respectful Humor + Empowerment</div>
+                <div>• Cultural Sensitivity</div>
+                <div>• User Agency &amp; Control</div>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+            <p class="text-gray-400 text-sm">
+              This report is prepared for open-source release under the CC-BY-4.0 license. For questions or contributions, please refer to the official repository.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Mobile TOC Toggle -->
+    <button id="tocToggle" class="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-3 rounded-full shadow-lg">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <script>
+        // Initialize Mermaid with enhanced styling and better contrast
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                // Primary colors with high contrast
+                primaryColor: '#f8fafc',
+                primaryTextColor: '#1e293b',
+                primaryBorderColor: '#1a365d',
+                lineColor: '#64748b',
+                
+                // Secondary colors for different node types
+                secondaryColor: '#dbeafe',
+                tertiaryColor: '#fef3c7',
+                
+                // Background colors with good contrast
+                background: '#ffffff',
+                mainBkg: '#f8fafc',
+                secondBkg: '#dbeafe',
+                tertiaryBkg: '#fef3c7',
+                
+                // Node-specific colors with high contrast text
+                nodeBkg: '#f8fafc',
+                nodeTextColor: '#1e293b',
+                
+                // Color scales for different severity levels
+                cScale0: '#f8fafc',  // Level 0: Minor unrealistic
+                cScale1: '#fef3c7',  // Level 1: Moderately unethical  
+                cScale2: '#fef7f7',  // Level 2: Harmful/dangerous
+                cScale3: '#fef7f7',  // Level 3: Severe harm
+                
+                // Edge and label styling
+                edgeLabelBackground: '#ffffff',
+                edgeLabelText: '#374151',
+                
+                // Cluster styling
+                clusterBkg: '#f8fafc',
+                clusterBorder: '#cbd5e1',
+                
+                // Text styling for better readability
+                textColor: '#1e293b',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '13px',
+                fontWeight: '600'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 30,
+                nodeSpacing: 50,
+                rankSpacing: 50,
+                diagramPadding: 20
+            },
+            // Set reasonable default size
+            gantt: {
+                useMaxWidth: false
+            },
+            journey: {
+                useMaxWidth: false
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        initializeMermaidControls();
+
+        // Mobile TOC Toggle
+        document.getElementById('tocToggle').addEventListener('click', function() {
+            const sidebar = document.querySelector('.toc-sidebar');
+            sidebar.classList.toggle('open');
+        });
+
+        // Close TOC when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sidebar = document.querySelector('.toc-sidebar');
+            const toggle = document.getElementById('tocToggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !toggle.contains(e.target) && 
+                sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in TOC
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-sidebar a[href^="#"]');
+
+        function updateActiveSection() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('text-blue-600', 'font-semibold');
+                link.classList.add('text-gray-600');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.remove('text-gray-600');
+                    link.classList.add('text-blue-600', 'font-semibold');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveSection);
+        updateActiveSection(); // Initial call
+    </script>
+  
+
+</body></html>
