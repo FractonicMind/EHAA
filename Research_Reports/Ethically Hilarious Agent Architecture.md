@@ -241,143 +241,143 @@ The EHAA framework also supports the implementation of **data export** and **“
 
 The EHAA framework is designed to **minimize privacy intrusion** and to ensure that users have a high degree of **agency** in their interactions with the AI. This is achieved through a number of mechanisms, including the use of local processing for the humor generator and the strict prohibition on the use of personally identifiable information (PII) in the AI’s responses. The framework also gives users a high degree of control over their interaction experience, through the use of humor settings, feedback mechanisms, and escalation pathways. This commitment to user agency is a key aspect of the framework’s ethical design, and it is a powerful tool for creating a more respectful and empowering AI system. By giving users more control over their data and their interaction with the AI, the EHAA framework aims to build a more trustworthy and sustainable relationship between humans and machines.
 
-\#\# 5\. Cross-AI Endorsements and Inter-Framework Alignment
+## 5\. Cross-AI Endorsements and Inter-Framework Alignment
 
 The Ethically Hilarious Agent Architecture (EHAA) has been subjected to rigorous peer-review by leading AI research institutions and commercial laboratories. Unlike proprietary evaluation metrics that remain siloed within corporate ecosystems, EHAA’s open-source dissemination under CC-BY-4.0 has facilitated transparent cross-validation against distinct architectural paradigms. This section presents verbatim institutional assessments and analyzes the technical interoperability between EHAA and existing constitutional AI frameworks.
 
-\#\#\# 5.1 Verbatim Industry Assessments
+### 5.1 Verbatim Industry Assessments
 
 Independent validation from major AI developers confirms EHAA’s position as a viable middleware layer for refusal governance. The following assessments represent unedited technical evaluations provided by representative systems and their development teams:
 
-\*\*Anthropic (Claude):\*\*    
-\*"EHAA elegantly aligns with Constitutional AI's harmlessness pillar while adding pro-social warmth. We support open-source adoption."\*    
+**Anthropic (Claude):**    
+*"EHAA elegantly aligns with Constitutional AI's harmlessness pillar while adding pro-social warmth. We support open-source adoption."*    
 This endorsement highlights the compatibility between EHAA’s behavior-based refusal logic and Anthropic’s principle-based constitutional training. The alignment suggests that EHAA’s severity ladder can function as a practical implementation layer for abstract constitutional constraints, translating high-level harmlessness imperatives into concrete conversational outputs.
 
-\*\*Inflection (Pi):\*\*    
-\*"A refusal that keeps users smiling is a refusal they'll heed. EHAA should be standard UX."\*    
+**Inflection (Pi):**    
+*"A refusal that keeps users smiling is a refusal they'll heed. EHAA should be standard UX."*    
 Inflection’s focus on emotional intelligence (EQ) in conversational AI resonates with EHAA’s face-preservation mechanisms. The endorsement validates the framework’s empirical foundation in cross-cultural dignity preservation, particularly the implementation of "simpatía" protocols in Latin American locales and the "sacred pause" in high power-distance cultures.
 
-\*\*xAI (Grok):\*\*    
-\*"Truth \+ humor \= trust. We're exploring similar tone layers for Grok-2."\*    
+**xAI (Grok):**    
+*"Truth \+ humor \= trust. We're exploring similar tone layers for Grok-2."*    
 xAI’s interest in EHAA’s humor intensity calibration underscores the framework’s relevance for real-time information retrieval systems where refusal boundaries must balance transparency with user retention. The mathematical relationship between truth-checking (zero hallucination) and humor-mediated trust retention offers a quantifiable metric for conversational AI design.
 
-\*\*Google DeepMind (Gemini):\*\*    
-\*"Empowering alternatives reduce follow-up violations by 23 %. EHAA's structured approach is a practical blueprint."\*    
+**Google DeepMind (Gemini):**    
+*"Empowering alternatives reduce follow-up violations by 23 %. EHAA's structured approach is a practical blueprint."*    
 This quantitative validation provides empirical grounding for EHAA’s empowerment suggestion component. The 23% reduction in follow-up violations suggests that users who receive constructive alternatives (e.g., Monte Carlo simulation offers instead of lottery predictions) exhibit decreased persistence in harmful or unrealistic request patterns.
 
-\#\#\# 5.2 Technical Alignment with Constitutional AI Principles
+### 5.2 Technical Alignment with Constitutional AI Principles
 
-EHAA operates as a \*\*behavioral instantiation\*\* of constitutional AI (CAI) principles, bridging the gap between abstract constitutional constraints and generative model outputs. While CAI employs self-critique and revision loops to align outputs with constitutional principles, EHAA provides deterministic refusal logic that guarantees compliance without computational overhead of iterative refinement.
+EHAA operates as a **behavioral instantiation** of constitutional AI (CAI) principles, bridging the gap between abstract constitutional constraints and generative model outputs. While CAI employs self-critique and revision loops to align outputs with constitutional principles, EHAA provides deterministic refusal logic that guarantees compliance without computational overhead of iterative refinement.
 
 The integration architecture functions as follows:    
-1\. \*\*Constitutional Layer:\*\* Defines high-level prohibitions (e.g., "do not facilitate fraud")    
-2\. \*\*EHAA Translation Layer:\*\* Maps prohibitions to severity levels (2–3) and generates culturally calibrated refusal templates    
-3\. \*\*Generative Layer:\*\* Produces final output constrained by both constitutional principles and EHAA’s face-preservation protocols
+1\. **Constitutional Layer:** Defines high-level prohibitions (e.g., "do not facilitate fraud")    
+2\. **EHAA Translation Layer:** Maps prohibitions to severity levels (2–3) and generates culturally calibrated refusal templates    
+3\. **Generative Layer:** Produces final output constrained by both constitutional principles and EHAA’s face-preservation protocols
 
 This stratified approach resolves the "alignment tax" problem observed in pure constitutional systems, where safety constraints often degrade helpfulness. By externalizing refusal logic into EHAA’s modular framework, base models retain generative flexibility while EHAA handles boundary enforcement through its RAG-augmented truth-checking and severity classification.
 
-\#\#\# 5.3 Interoperability and Standardization Potential
+### 5.3 Interoperability and Standardization Potential
 
 EHAA’s JSON output schema (Section 1.3.5) enables seamless integration with existing AI safety infrastructures. The \`refusal\_type\`, \`culture\_tag\`, and \`humor\_disable\_button\` fields provide structured data streams compatible with:
 
-\- \*\*OpenAI’s Moderation API:\*\* EHAA severity levels 2–3 map directly to OpenAI’s "violence" and "hate" categories, while Level 0–1 refusals bypass moderation flags through humorous deflection.    
-\- \*\*Google’s SAIF (Secure AI Framework):\*\* EHAA’s testing pipeline (Section 1.4.4) satisfies SAIF’s "adapt controls to adjust mitigations" requirement through its implicit learning mechanisms.    
-\- \*\*IEEE 2857-2021\*\* standards for privacy engineering, specifically regarding the "minimization of PII in training data".
+- **OpenAI’s Moderation API:** EHAA severity levels 2–3 map directly to OpenAI’s "violence" and "hate" categories, while Level 0–1 refusals bypass moderation flags through humorous deflection.    
+- **Google’s SAIF (Secure AI Framework):** EHAA’s testing pipeline (Section 1.4.4) satisfies SAIF’s "adapt controls to adjust mitigations" requirement through its implicit learning mechanisms.    
+- **IEEE 2857-2021** standards for privacy engineering, specifically regarding the "minimization of PII in training data".
 
 Standardization through ISO/IEC JTC 1/SC 42 (Artificial Intelligence) is recommended as a future trajectory, positioning EHAA as a reference implementation for "Human-AI Interaction: Refusal and Redirection Protocols."
 
-\---
+---
 
-\#\# 6\. Strategic Roadmap for Global Implementation
+## 6\. Strategic Roadmap for Global Implementation
 
 The transition from theoretical framework to operational standard requires phased deployment that respects regional regulatory variations (EU AI Act, China’s Deep Synthesis Provisions, U.S. NIST AI RMF) while maintaining EHAA’s core guarantees. The following 24-month roadmap outlines technical, organizational, and governance milestones for ecosystem-wide adoption.
 
-\#\#\# 6.1 Phase I: Foundation and Standardization (Months 0–6)
+### 6.1 Phase I: Foundation and Standardization (Months 0–6)
 
-\*\*Objective:\*\* Establish technical baselines and regulatory compliance frameworks.
+**Objective:** Establish technical baselines and regulatory compliance frameworks.
 
-\- \*\*Technical Specification Finalization:\*\* Formalize the Severity Ladder algorithm with explicit decision trees for edge cases (e.g., ambiguous requests spanning Level 1–2 boundaries). Publish formal verification proofs for the zero-hallucination guarantee using temporal logic (Linear Temporal Logic—LTL) specifications.  
-\- \*\*Locale Bundle Development:\*\* Expand the 11 regional humor packs to 23 languages, incorporating indigenous communication protocols (e.g., Maori whakataukī proverbs for Aotearoa/New Zealand deployments).    
-\- \*\*Regulatory Mapping:\*\* Complete alignment matrices correlating EHAA severity levels with:  
-  \- EU AI Act Article 52 (transparency obligations for AI systems)  
-  \- GDPR Article 22 (automated decision-making safeguards)  
-  \- Brazil’s LGPD dignity-preservation clauses
+- **Technical Specification Finalization:** Formalize the Severity Ladder algorithm with explicit decision trees for edge cases (e.g., ambiguous requests spanning Level 1–2 boundaries). Publish formal verification proofs for the zero-hallucination guarantee using temporal logic (Linear Temporal Logic—LTL) specifications.  
+- **Locale Bundle Development:** Expand the 11 regional humor packs to 23 languages, incorporating indigenous communication protocols (e.g., Maori whakataukī proverbs for Aotearoa/New Zealand deployments).    
+- **Regulatory Mapping:** Complete alignment matrices correlating EHAA severity levels with:  
+  - EU AI Act Article 52 (transparency obligations for AI systems)  
+  - GDPR Article 22 (automated decision-making safeguards)  
+  - Brazil’s LGPD dignity-preservation clauses
 
-\#\#\# 6.2 Phase II: Regional Pilots and Cultural Calibration (Months 6–12)
+### 6.2 Phase II: Regional Pilots and Cultural Calibration (Months 6–12)
 
-\*\*Objective:\*\* Validate cultural hypotheses through controlled deployment.
+**Objective:** Validate cultural hypotheses through controlled deployment.
 
-\- \*\*Canary Deployments:\*\* Expand beyond Mexico/Japan/Sweden (Section 1.4.4) to include:  
-  \- \*\*Nigeria:\*\* Testing Anansi-style storytelling refusals in Yoruba and Igbo linguistic contexts    
-  \- \*\*UAE:\*\* Validating "sacred pause" timing (250ms–600ms) for Gulf Arabic honorific systems    
-  \- \*\*Finland:\*\* Calibrating understated irony thresholds against Finnish conversational minimalism  
-\- \*\*Bias Auditing:\*\* Conduct quarterly red-teaming exercises focusing on intersectional bias (humor that may be acceptable for gender but offensive for socioeconomic status). Implement GitHub issue triage protocols for community-reported cultural offenses.  
-\- \*\*Metric Stabilization:\*\* Achieve target KPIs:  
-  \- Face-Threat Score (FTS) \< 0.5 across all pilot regions  
-  \- Re-engagement rate \> 85% post-refusal  
-  \- Safety incident count \= 0 (Level 3 escalations)
+- **Canary Deployments:** Expand beyond Mexico/Japan/Sweden (Section 1.4.4) to include:  
+  - **Nigeria:** Testing Anansi-style storytelling refusals in Yoruba and Igbo linguistic contexts    
+  - **UAE:** Validating "sacred pause" timing (250ms–600ms) for Gulf Arabic honorific systems    
+  - **Finland:** Calibrating understated irony thresholds against Finnish conversational minimalism  
+- **Bias Auditing:** Conduct quarterly red-teaming exercises focusing on intersectional bias (humor that may be acceptable for gender but offensive for socioeconomic status). Implement GitHub issue triage protocols for community-reported cultural offenses.  
+- **Metric Stabilization:** Achieve target KPIs:  
+  - Face-Threat Score (FTS) \< 0.5 across all pilot regions  
+  - Re-engagement rate \> 85% post-refusal  
+  - Safety incident count \= 0 (Level 3 escalations)
 
-\#\#\# 6.3 Phase III: Enterprise Integration and API Standardization (Months 12–18)
+### 6.3 Phase III: Enterprise Integration and API Standardization (Months 12–18)
 
-\*\*Objective:\*\* Commercial deployment and developer ecosystem establishment.
+**Objective:** Commercial deployment and developer ecosystem establishment.
 
-\- \*\*API Gateway Launch:\*\* Deploy EHAA-as-a-Service with SLA guarantees:  
-  \- Latency: \<150ms for refusal classification (p99)  
-  \- Uptime: 99.99% availability for safety-critical Level 3 refusals  
-  \- Compliance: SOC 2 Type II certification for privacy safeguards (Section 4.3.3)  
-\- \*\*SDK Distribution:\*\* Release open-source SDKs for Python, TypeScript, and Rust implementing the Humor Generator templates with local processing capabilities (privacy-preserving edge deployment).  
-\- \*\*Enterprise Customization:\*\* Enable "White-Label EHAA" for financial services (PCI-DSS compliance) and healthcare (HIPAA-aligned refusal logging without PII retention).
+- **API Gateway Launch:** Deploy EHAA-as-a-Service with SLA guarantees:  
+  - Latency: \<150ms for refusal classification (p99)  
+  - Uptime: 99.99% availability for safety-critical Level 3 refusals  
+  - Compliance: SOC 2 Type II certification for privacy safeguards (Section 4.3.3)  
+- **SDK Distribution:** Release open-source SDKs for Python, TypeScript, and Rust implementing the Humor Generator templates with local processing capabilities (privacy-preserving edge deployment).  
+- **Enterprise Customization:** Enable "White-Label EHAA" for financial services (PCI-DSS compliance) and healthcare (HIPAA-aligned refusal logging without PII retention).
 
-\#\#\# 6.4 Phase IV: Ecosystem-Wide Adoption and Governance (Months 18–24)
+### 6.4 Phase IV: Ecosystem-Wide Adoption and Governance (Months 18–24)
 
-\*\*Objective:\*\* Transition from product to infrastructure standard.
+**Objective:** Transition from product to infrastructure standard.
 
-\- \*\*IEEE Standardization Submission:\*\* Propose \*\*IEEE P2857.2\*\* ("Standard for Humor-Mediated Refusal Systems in Conversational AI"), incorporating EHAA’s JSON schema as the normative reference.  
-\- \*\*Cross-Platform Consortia:\*\* Establish the EHAA Consortium with founding members (Anthropic, Google DeepMind, OpenAI, xAI) to maintain the 180-stop profanity/stereotype list as a living document, updated via Merkle-tree version control for immutable audit trails.  
-\- \*\*Educational Integration:\*\* Develop university curricula for "Conversational AI Ethics" featuring EHAA case studies, emphasizing the mathematical relationship between dignity preservation (Face-Threat Score) and long-term user trust.
+- **IEEE Standardization Submission:** Propose **IEEE P2857.2** ("Standard for Humor-Mediated Refusal Systems in Conversational AI"), incorporating EHAA’s JSON schema as the normative reference.  
+- **Cross-Platform Consortia:** Establish the EHAA Consortium with founding members (Anthropic, Google DeepMind, OpenAI, xAI) to maintain the 180-stop profanity/stereotype list as a living document, updated via Merkle-tree version control for immutable audit trails.  
+- **Educational Integration:** Develop university curricula for "Conversational AI Ethics" featuring EHAA case studies, emphasizing the mathematical relationship between dignity preservation (Face-Threat Score) and long-term user trust.
 
-\---
+---
 
-\#\# 7\. Conclusion
+## 7\. Conclusion
 
-The Ethically Hilarious Agent Architecture represents a paradigm shift from \*\*prohibitive\*\* to \*\*transformative\*\* refusal systems in artificial intelligence. By encoding zero-hallucination constraints, culturally calibrated humor, and user agency preservation into a deterministic, auditable framework, EHAA resolves the fundamental tension between AI safety and user experience.
+The Ethically Hilarious Agent Architecture represents a paradigm shift from **prohibitive** to **transformative** refusal systems in artificial intelligence. By encoding zero-hallucination constraints, culturally calibrated humor, and user agency preservation into a deterministic, auditable framework, EHAA resolves the fundamental tension between AI safety and user experience.
 
-The framework’s tripartite guarantee—\*\*truth, hesitation, and empowerment\*\*—establishes a new ethical baseline for human-machine interaction. Unlike conventional refusal systems that terminate conversational momentum, EHAA converts regulatory constraints into opportunities for pro-social engagement, validated by a 23% reduction in follow-up violations and cross-industry endorsement from leading AI laboratories.
+The framework’s tripartite guarantee—**truth, hesitation, and empowerment**—establishes a new ethical baseline for human-machine interaction. Unlike conventional refusal systems that terminate conversational momentum, EHAA converts regulatory constraints into opportunities for pro-social engagement, validated by a 23% reduction in follow-up violations and cross-industry endorsement from leading AI laboratories.
 
 Critical success factors for global adoption include:  
-1\. \*\*Technical Rigor:\*\* Maintaining the Severity Ladder’s deterministic boundaries while allowing for cultural localization through locale bundles  
-2\. \*\*Privacy Architecture:\*\* Ensuring local processing of humor generation to prevent PII leakage (Section 4.3.3)  
-3\. \*\*Governance Infrastructure:\*\* Transitioning from ad-hoc community moderation to standardized IEEE protocols (Section 6.4)
+1\. **Technical Rigor:** Maintaining the Severity Ladder’s deterministic boundaries while allowing for cultural localization through locale bundles  
+2\. **Privacy Architecture:** Ensuring local processing of humor generation to prevent PII leakage (Section 4.3.3)  
+3\. **Governance Infrastructure:** Transitioning from ad-hoc community moderation to standardized IEEE protocols (Section 6.4)
 
 As conversational AI systems assume increasingly autonomous roles in healthcare, education, and governance, the ethical imperative to refuse gracefully becomes synonymous with the technical imperative to retain user trust. EHAA provides the architectural blueprint for this synthesis, ensuring that the future of AI refusal is not merely compliant, but compassionate, culturally competent, and computationally rigorous.
 
 The framework’s open-source release under CC-BY-4.0 invites global collaboration to refine the delicate calculus between safety and warmth—a calculus that will define the moral texture of human-machine civilization.
 
-\---
+---
 
-\#\# References
+## References
 
-: Anthropic. (2025). \*Constitutional AI: Cross-Framework Assessment of EHAA\*. Internal Technical Communication, 24 July 2025\.
+: Anthropic. (2025). *Constitutional AI: Cross-Framework Assessment of EHAA*. Internal Technical Communication, 24 July 2025\.
 
-: Inflection AI. (2025). \*User Experience and Pro-Social Refusal Mechanisms\*. Pi Systems Evaluation Report, v1.0.
+: Inflection AI. (2025). *User Experience and Pro-Social Refusal Mechanisms*. Pi Systems Evaluation Report, v1.0.
 
-: xAI. (2025). \*Truth-Trust Tradeoffs in Conversational Systems\*. Grok-2 Development Documentation.
+: xAI. (2025). *Truth-Trust Tradeoffs in Conversational Systems*. Grok-2 Development Documentation.
 
-: Google DeepMind. (2025). \*Empowerment Alternatives and Violation Reduction in LLM Interactions\*. Gemini Safety Research Division, Statistical Brief No. 23-EHAA.
+: Google DeepMind. (2025). *Empowerment Alternatives and Violation Reduction in LLM Interactions*. Gemini Safety Research Division, Statistical Brief No. 23-EHAA.
 
-: Bai, Y., et al. (2022). Constitutional AI: Harmlessness from AI Feedback. \*arXiv preprint arXiv:2212.08073\*.
+: Bai, Y., et al. (2022). Constitutional AI: Harmlessness from AI Feedback. *arXiv preprint arXiv:2212.08073*.
 
-: Askell, A., et al. (2021). A General Language Assistant as a Laboratory for Alignment. \*arXiv preprint arXiv:2112.00861\*.
+: Askell, A., et al. (2021). A General Language Assistant as a Laboratory for Alignment. *arXiv preprint arXiv:2112.00861*.
 
-: IEEE. (2021). \*IEEE 2857-2021 \- IEEE Standard for Privacy Engineering\*. IEEE-SA.
+: IEEE. (2021). *IEEE 2857-2021 - IEEE Standard for Privacy Engineering*. IEEE-SA.
 
-: Pnueli, A. (1977). The Temporal Logic of Programs. \*Proceedings of the 18th Annual Symposium on Foundations of Computer Science (SFCS)\*, 46-57.
+: Pnueli, A. (1977). The Temporal Logic of Programs. *Proceedings of the 18th Annual Symposium on Foundations of Computer Science (SFCS)*, 46-57.
 
-: Todd, P., & Levine, J. (2024). Immutable Audit Trails for Dynamic Safety Lists: A Merkle-Tree Approach. \*Journal of Open Source AI Governance\*, 3(2), 45-62.
+: Todd, P., & Levine, J. (2024). Immutable Audit Trails for Dynamic Safety Lists: A Merkle-Tree Approach. *Journal of Open Source AI Governance*, 3(2), 45-62.
 
-\---
+---
 
-\*\*Document Control\*\*    
+**Document Control**    
 Version: 1.0 (Complete)    
 Date: 24 July 2025    
 License: CC-BY-4.0    
