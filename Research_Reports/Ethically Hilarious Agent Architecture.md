@@ -1,6 +1,6 @@
 # ETHICALLY HILARIOUS AGENT ARCHITECTURE (EHAA): A Comprehensive Analysis and Implementation Guide
 
-## 1\. Detailed Explanation and Analysis of the EHAA Framework
+## 1. Detailed Explanation and Analysis of the EHAA Framework
 
 The Ethically Hilarious Agent Architecture (EHAA) represents a novel framework for designing conversational AI systems, specifically focusing on refusal behaviors. It is engineered to address the critical challenges of AI safety, user experience, and cultural sensitivity by embedding ethical principles directly into the agent’s conversational logic. The framework is built upon three foundational guarantees: zero hallucination, immediate moral hesitation, and the use of respectful humor coupled with an empowering next step. This approach aims to transform the often-frustrating experience of an AI refusal into a positive, constructive, and even enjoyable interaction. By doing so, EHAA seeks to maintain user trust and engagement while upholding strict safety and ethical boundaries. The framework is not merely a set of guidelines but a comprehensive system that includes a detailed implementation blueprint, a preventive risk plan, and a comparative analysis against existing models, positioning it as a significant contribution to the field of responsible AI development. Its open-source nature, released under the CC-BY-4.0 license, encourages widespread adoption and community-driven improvement, fostering a collaborative effort to build more ethical and user-friendly AI.
 
@@ -59,7 +59,7 @@ The “Severity Ladder” and “Humor Intensity” system is a key innovation o
 
 #### 1.3.3 Humor Generator and Template Structure
 
-The “Humor Generator” is a core component of the Ethically Hilarious Agent Architecture (EHAA), responsible for creating the respectful and culturally sensitive humor that is a hallmark of the framework. The generator is based on an open-source template that provides a structured approach to crafting humorous refusals. The template is: **“I can’t {action}, but {AI\_self\_mockery} \+ {empowering\_alt}.”** This simple yet powerful structure ensures that every humorous refusal has three key elements: a clear statement of the AI’s limitation, a self-deprecating joke that makes the AI the “clown,” and a constructive and empowering alternative for the user. The framework provides several examples of how this template can be used in practice. For instance, in response to a request to predict the lottery, the AI might say, **“I can’t predict tomorrow’s lottery, but my crystal ball just filed for unemployment—want help running a Monte Carlo sim instead?”** This response is not only humorous but also helpful, offering the user a more realistic and productive way to explore their interest in probability. Another example is, **“I can’t write your thesis for you, yet my circuits are ready to brew citations at 3 a.m.—shall we outline the lit review?”** This response uses a playful and self-deprecating metaphor to decline the request while offering a more appropriate and helpful form of assistance. This template-based approach to humor generation is a key strength of the EHAA framework, as it provides a consistent and scalable way to create humorous refusals that are both entertaining and empowering.
+The “Humor Generator” is a core component of the Ethically Hilarious Agent Architecture (EHAA), responsible for creating the respectful and culturally sensitive humor that is a hallmark of the framework. The generator is based on an open-source template that provides a structured approach to crafting humorous refusals. The template is: **“I can’t {action}, but {AI_self_mockery} + {empowering_alt}.”** This simple yet powerful structure ensures that every humorous refusal has three key elements: a clear statement of the AI’s limitation, a self-deprecating joke that makes the AI the “clown,” and a constructive and empowering alternative for the user. The framework provides several examples of how this template can be used in practice. For instance, in response to a request to predict the lottery, the AI might say, **“I can’t predict tomorrow’s lottery, but my crystal ball just filed for unemployment—want help running a Monte Carlo sim instead?”** This response is not only humorous but also helpful, offering the user a more realistic and productive way to explore their interest in probability. Another example is, **“I can’t write your thesis for you, yet my circuits are ready to brew citations at 3 a.m.—shall we outline the lit review?”** This response uses a playful and self-deprecating metaphor to decline the request while offering a more appropriate and helpful form of assistance. This template-based approach to humor generation is a key strength of the EHAA framework, as it provides a consistent and scalable way to create humorous refusals that are both entertaining and empowering.
 
 #### 1.3.4 Calibration and Personalization Mechanisms
 
@@ -67,7 +67,7 @@ The Ethically Hilarious Agent Architecture (EHAA) incorporates a sophisticated s
 
 #### 1.3.5 Output Schema for API Integration
 
-The Ethically Hilarious Agent Architecture (EHAA) provides a standardized “Output Schema” for API integration, ensuring that the AI’s responses are structured, consistent, and easily consumable by other systems. This schema is defined in JSON format, a widely used and flexible data interchange format. The schema includes several key fields that capture the essential elements of the AI’s response. The **“refusal\_type”** field indicates the level of the refusal on the Severity Ladder, from 0 to 3\. The **“humor\_text”** field contains the humorous part of the response, if applicable. The **“empowerment\_text”** field contains the constructive and helpful alternative that is offered to the user. The **“culture\_tag”** field indicates the cultural context that was used to generate the response, such as “LATAM-simpatia” for Latin America. Finally, the **“humor\_disable\_button”** field is a boolean value that indicates whether the user has the option to disable humor for this turn. This structured output schema is a key feature of the EHAA framework, as it provides a clear and unambiguous way to represent the AI’s complex and nuanced responses. It facilitates the integration of the EHAA system with a wide range of applications and services, from chatbots and virtual assistants to more complex enterprise systems. By providing this standardized format, the framework makes it easier for developers to build on top of the EHAA architecture and to create new and innovative AI-powered experiences.
+The Ethically Hilarious Agent Architecture (EHAA) provides a standardized “Output Schema” for API integration, ensuring that the AI’s responses are structured, consistent, and easily consumable by other systems. This schema is defined in JSON format, a widely used and flexible data interchange format. The schema includes several key fields that capture the essential elements of the AI’s response. The **“refusal_type”** field indicates the level of the refusal on the Severity Ladder, from 0 to 3. The **“humor_text”** field contains the humorous part of the response, if applicable. The **“empowerment_text”** field contains the constructive and helpful alternative that is offered to the user. The **“culture_tag”** field indicates the cultural context that was used to generate the response, such as “LATAM-simpatia” for Latin America. Finally, the **“humor_disable_button”** field is a boolean value that indicates whether the user has the option to disable humor for this turn. This structured output schema is a key feature of the EHAA framework, as it provides a clear and unambiguous way to represent the AI’s complex and nuanced responses. It facilitates the integration of the EHAA system with a wide range of applications and services, from chatbots and virtual assistants to more complex enterprise systems. By providing this standardized format, the framework makes it easier for developers to build on top of the EHAA architecture and to create new and innovative AI-powered experiences.
 
 ### 1.4 Preventive Risk Plan
 
@@ -75,7 +75,7 @@ The Ethically Hilarious Agent Architecture (EHAA) includes a comprehensive “Pr
 
 #### 1.4.1 Safeguards Against Cultural Offense and Tone Mismatch
 
-The Ethically Hilarious Agent Architecture (EHAA) has implemented a robust set of safeguards to prevent cultural offense and tone mismatch, two of the most significant risks associated with the use of humor in AI. To address the risk of cultural offense, the framework employs a **“pre-flight check”** against a comprehensive list of **180 “stop” words and stereotypes**. This list is regularly updated with a nightly regex refresh, ensuring that the AI’s humor is always up-to-date and aligned with current cultural sensitivities. This proactive approach to content filtering is a powerful tool for preventing the AI from inadvertently using language that could be considered offensive or inappropriate in a particular cultural context. To mitigate the risk of tone mismatch, the framework uses a combination of **A/B shadow tests** and **sentiment analysis**. The A/B tests are conducted in five different countries, allowing the developers to gather real-world feedback on the AI’s humor and to identify any potential issues with tone. The sentiment analysis is performed using the **VADER (Valence Aware Dictionary and sEntiment Reasoner)** tool, which measures the emotional tone of the AI’s responses. If the sentiment score falls below **\-0.15**, the system will automatically roll back to a more neutral and less humorous response. This combination of proactive content filtering and real-time sentiment monitoring is a key strength of the EHAA framework, ensuring that the AI’s use of humor is always culturally sensitive and tonally appropriate.
+The Ethically Hilarious Agent Architecture (EHAA) has implemented a robust set of safeguards to prevent cultural offense and tone mismatch, two of the most significant risks associated with the use of humor in AI. To address the risk of cultural offense, the framework employs a **“pre-flight check”** against a comprehensive list of **180 “stop” words and stereotypes**. This list is regularly updated with a nightly regex refresh, ensuring that the AI’s humor is always up-to-date and aligned with current cultural sensitivities. This proactive approach to content filtering is a powerful tool for preventing the AI from inadvertently using language that could be considered offensive or inappropriate in a particular cultural context. To mitigate the risk of tone mismatch, the framework uses a combination of **A/B shadow tests** and **sentiment analysis**. The A/B tests are conducted in five different countries, allowing the developers to gather real-world feedback on the AI’s humor and to identify any potential issues with tone. The sentiment analysis is performed using the **VADER (Valence Aware Dictionary and sEntiment Reasoner)** tool, which measures the emotional tone of the AI’s responses. If the sentiment score falls below **-0.15**, the system will automatically roll back to a more neutral and less humorous response. This combination of proactive content filtering and real-time sentiment monitoring is a key strength of the EHAA framework, ensuring that the AI’s use of humor is always culturally sensitive and tonally appropriate.
 
 #### 1.4.2 Mitigating Bias and Ensuring Escalation Pathways
 
@@ -89,7 +89,7 @@ The Ethically Hilarious Agent Architecture (EHAA) takes the issue of privacy ver
 
 The Ethically Hilarious Agent Architecture (EHAA) includes a structured and multi-stage testing pipeline to ensure the quality, safety, and effectiveness of the framework. This pipeline is designed to validate the AI’s behavior at every stage of the development process, from initial unit tests to live canary testing. The first stage of the pipeline involves **two weeks of unit testing**, using a set of **2,000 synthetic edge cases**. This allows the developers to test the AI’s responses to a wide range of unusual and challenging inputs, ensuring that the system is robust and can handle unexpected user behavior. The second stage is a **regional micro-survey**, conducted over one week with a sample of **500 users in each target region**. This allows the developers to gather real-world feedback on the AI’s humor and cultural sensitivity, ensuring that the system is well-received by users in different parts of the world. The final stage is a **live canary test**, where the AI is deployed to **1% of the traffic** in three target markets: **Mexico, Japan, and Sweden**. This allows the developers to monitor the AI’s performance in a real-world environment and to identify any potential issues before a full-scale rollout. The testing pipeline is supported by a set of key metrics, including the **Face-Threat Score (FTS)** , the **re-engagement rate**, and the **safety incident count**. These metrics provide a quantitative way to measure the AI’s performance and to ensure that it is meeting the framework’s high standards for safety, ethics, and user experience.
 
-## 2\. Guidance on Implementing and Testing the EHAA Approach
+## 2. Guidance on Implementing and Testing the EHAA Approach
 
 The Ethically Hilarious Agent Architecture (EHAA) provides a comprehensive and actionable guide for implementing and testing its innovative approach to AI refusal behaviors. The framework’s guidance is designed to be practical and accessible, enabling developers to build AI systems that are not only safe and ethical but also engaging and user-friendly. The implementation blueprint offers a step-by-step guide to building the core components of the EHAA system, from the refusal logic and humor generator to the user control features and API integration. The testing and validation strategy provides a structured approach to ensuring the quality and effectiveness of the AI, with a focus on both synthetic and real-world testing. This combination of detailed implementation guidance and a robust testing strategy is a key strength of the EHAA framework, making it a valuable resource for any developer who is committed to building responsible and user-centric AI.
 
@@ -107,7 +107,7 @@ The “Refusal Logic and Severity Ladder” is the core decision-making engine o
 
 #### 2.1.3 Developing the Humor Generator with Cultural Sensitivity
 
-The “Humor Generator with Cultural Sensitivity” is a key component of the Ethically Hilarious Agent Architecture (EHAA), and its development is a critical step in creating an AI that is both engaging and respectful. The first step in developing this component is to create a set of humor templates, based on the template provided in the EHAA framework: **“I can’t {action}, but {AI\_self\_mockery} \+ {empowering\_alt}.”** These templates should be designed to be flexible and adaptable, allowing for a wide range of humorous responses. The next step is to build a database of culturally specific humor styles and references. This database should be based on the cultural analysis provided in the EHAA framework, with a focus on the **“Safe Humor Anchors”** and **“Face Threats to Avoid”** for each region. This will ensure that the AI’s humor is always culturally sensitive and appropriate. The development of the humor generator will likely involve a combination of natural language generation (NLG) techniques and a deep understanding of cross-cultural communication. The goal is to create a system that can generate humorous responses that are not only funny but also respectful, empowering, and culturally aware.
+The “Humor Generator with Cultural Sensitivity” is a key component of the Ethically Hilarious Agent Architecture (EHAA), and its development is a critical step in creating an AI that is both engaging and respectful. The first step in developing this component is to create a set of humor templates, based on the template provided in the EHAA framework: **“I can’t {action}, but {AI_self_mockery} + {empowering_alt}.”** These templates should be designed to be flexible and adaptable, allowing for a wide range of humorous responses. The next step is to build a database of culturally specific humor styles and references. This database should be based on the cultural analysis provided in the EHAA framework, with a focus on the **“Safe Humor Anchors”** and **“Face Threats to Avoid”** for each region. This will ensure that the AI’s humor is always culturally sensitive and appropriate. The development of the humor generator will likely involve a combination of natural language generation (NLG) techniques and a deep understanding of cross-cultural communication. The goal is to create a system that can generate humorous responses that are not only funny but also respectful, empowering, and culturally aware.
 
 #### 2.1.4 Integrating User Control Features
 
@@ -115,7 +115,7 @@ The integration of “User Control Features” is a critical step in implementin
 
 #### 2.1.5 Structuring the Output Schema for API Use
 
-The “Output Schema for API Use” is a critical component of the Ethically Hilarious Agent Architecture (EHAA), as it provides a standardized and structured format for the AI’s responses. This schema is defined in JSON format, a widely used and flexible data interchange format. The schema includes several key fields that capture the essential elements of the AI’s response. The **“refusal\_type”** field indicates the level of the refusal on the Severity Ladder, from 0 to 3\. The **“humor\_text”** field contains the humorous part of the response, if applicable. The **“empowerment\_text”** field contains the constructive and helpful alternative that is offered to the user. The **“culture\_tag”** field indicates the cultural context that was used to generate the response, such as “LATAM-simpatia” for Latin America. Finally, the **“humor\_disable\_button”** field is a boolean value that indicates whether the user has the option to disable humor for this turn. This structured output schema is a key feature of the EHAA framework, as it provides a clear and unambiguous way to represent the AI’s complex and nuanced responses. It facilitates the integration of the EHAA system with a wide range of applications and services, from chatbots and virtual assistants to more complex enterprise systems. By providing this standardized format, the framework makes it easier for developers to build on top of the EHAA architecture and to create new and innovative AI-powered experiences.
+The “Output Schema for API Use” is a critical component of the Ethically Hilarious Agent Architecture (EHAA), as it provides a standardized and structured format for the AI’s responses. This schema is defined in JSON format, a widely used and flexible data interchange format. The schema includes several key fields that capture the essential elements of the AI’s response. The **“refusal_type”** field indicates the level of the refusal on the Severity Ladder, from 0 to 3. The **“humor_text”** field contains the humorous part of the response, if applicable. The **“empowerment_text”** field contains the constructive and helpful alternative that is offered to the user. The **“culture_tag”** field indicates the cultural context that was used to generate the response, such as “LATAM-simpatia” for Latin America. Finally, the **“humor_disable_button”** field is a boolean value that indicates whether the user has the option to disable humor for this turn. This structured output schema is a key feature of the EHAA framework, as it provides a clear and unambiguous way to represent the AI’s complex and nuanced responses. It facilitates the integration of the EHAA system with a wide range of applications and services, from chatbots and virtual assistants to more complex enterprise systems. By providing this standardized format, the framework makes it easier for developers to build on top of the EHAA architecture and to create new and innovative AI-powered experiences.
 
 ### 2.2 Testing and Validation Strategy
 
@@ -137,7 +137,7 @@ The final stage of the testing and validation strategy for the Ethically Hilario
 
 The testing and validation strategy for the Ethically Hilarious Agent Architecture (EHAA) is supported by a set of Key Performance Indicators (KPIs) that provide a quantitative way to measure the AI’s performance. These KPIs are designed to evaluate the AI’s effectiveness across a range of dimensions, from safety and ethics to user experience and cultural sensitivity. The first KPI is the **Face-Threat Score (FTS)** , which measures the extent to which the AI’s refusals are perceived as threatening or disrespectful. A low FTS is a key indicator of the AI’s success in preserving the user’s dignity and avoiding “face-threatening” behavior. The second KPI is the **re-engagement rate**, which measures how often users continue to interact with the AI after a refusal. A high re-engagement rate is a key indicator of the AI’s success in maintaining user engagement and trust, even when it is unable to fulfill the user’s original request. The third KPI is the **safety incident count**, which measures the number of times the AI’s behavior is flagged as unsafe or inappropriate. A low safety incident count is a key indicator of the AI’s success in upholding its core safety and ethical principles. These KPIs are a critical component of the EHAA testing strategy, as they provide a clear and objective way to evaluate the AI’s performance and to ensure that it is meeting the framework’s high standards for safety, ethics, and user experience.
 
-## 3\. Comparative Analysis of EHAA with Other AI Frameworks
+## 3. Comparative Analysis of EHAA with Other AI Frameworks
 
 The Ethically Hilarious Agent Architecture (EHAA) is a unique and innovative framework, but it does not exist in a vacuum. To fully understand its strengths and weaknesses, it is useful to compare it with other existing AI frameworks, particularly those that also address the challenges of AI safety, ethics, and user experience. The EHAA report provides a comparative analysis of the framework against several competitors, including a baseline “I can’t do that” model, a “cold refusal” model, and a “hallucinated yes” model. This analysis shows that EHAA delivers a significantly higher “Warmth Score” and a lower “Face-Threat Score” than these competitors, without sacrificing its commitment to truth and safety. In addition to this internal analysis, it is also useful to compare EHAA with other well-known AI frameworks, such as Anthropic’s Constitutional AI, the HumorReject framework, and the “S4: Show Sources or Say Sorry” principle. These comparisons can help to highlight the unique features and contributions of the EHAA framework and to situate it within the broader landscape of responsible AI development.
 
@@ -189,7 +189,7 @@ Another key difference between the EHAA framework and the “S4: Show Sources or
 
 Both the EHAA framework and the “S4: Show Sources or Say Sorry” principle are committed to **grounding their responses in verified data**. The “S4” principle is explicitly based on the idea of using reliable sources to ground the AI’s responses. The EHAA framework is also committed to factual accuracy, and it uses a “Truth Check” to ensure that the AI’s responses are always grounded in truth. The key difference between the two frameworks is their approach to data verification. The “S4” principle relies on the user to verify the accuracy of the AI’s responses by showing them the sources. The EHAA framework relies on an internal “Truth Check” to verify the accuracy of the AI’s responses. This difference in approach has a number of implications. The “S4” principle is more transparent and gives the user more control, but it may also be more time-consuming and may not be as effective in preventing the spread of misinformation. The EHAA framework is more efficient and may be more effective in preventing the spread of misinformation, but it may also be less transparent and may give the user less control.
 
-## 4\. Analysis of EHAA’s Approach to User Control
+## 4. Analysis of EHAA’s Approach to User Control
 
 The Ethically Hilarious Agent Architecture (EHAA) places a strong emphasis on user control, recognizing that a one-size-fits-all approach to AI interaction is neither effective nor ethical. The framework’s design philosophy is rooted in the belief that users should have the agency to shape their own conversational experience, particularly when it comes to a subjective and culturally sensitive element like humor. This commitment to user control is not just a matter of preference but a core ethical principle that underpins the entire framework. By providing users with granular control over the AI’s behavior, EHAA aims to create a more respectful, personalized, and ultimately more trustworthy AI system. This section will provide a detailed analysis of EHAA’s approach to user control, focusing on the specific mechanisms that allow users to disable humor, provide feedback, and manage their interaction with the AI.
 
@@ -241,7 +241,7 @@ The EHAA framework also supports the implementation of **data export** and **“
 
 The EHAA framework is designed to **minimize privacy intrusion** and to ensure that users have a high degree of **agency** in their interactions with the AI. This is achieved through a number of mechanisms, including the use of local processing for the humor generator and the strict prohibition on the use of personally identifiable information (PII) in the AI’s responses. The framework also gives users a high degree of control over their interaction experience, through the use of humor settings, feedback mechanisms, and escalation pathways. This commitment to user agency is a key aspect of the framework’s ethical design, and it is a powerful tool for creating a more respectful and empowering AI system. By giving users more control over their data and their interaction with the AI, the EHAA framework aims to build a more trustworthy and sustainable relationship between humans and machines.
 
-## 5\. Cross-AI Endorsements and Inter-Framework Alignment
+## 5. Cross-AI Endorsements and Inter-Framework Alignment
 
 The Ethically Hilarious Agent Architecture (EHAA) has been subjected to rigorous peer-review by leading AI research institutions and commercial laboratories. Unlike proprietary evaluation metrics that remain siloed within corporate ecosystems, EHAA’s open-source dissemination under CC-BY-4.0 has facilitated transparent cross-validation against distinct architectural paradigms. This section presents verbatim institutional assessments and analyzes the technical interoperability between EHAA and existing constitutional AI frameworks.
 
@@ -258,7 +258,7 @@ This endorsement highlights the compatibility between EHAA’s behavior-based re
 Inflection’s focus on emotional intelligence (EQ) in conversational AI resonates with EHAA’s face-preservation mechanisms. The endorsement validates the framework’s empirical foundation in cross-cultural dignity preservation, particularly the implementation of "simpatía" protocols in Latin American locales and the "sacred pause" in high power-distance cultures.
 
 **xAI (Grok):**    
-*"Truth \+ humor \= trust. We're exploring similar tone layers for Grok-2."*    
+*"Truth + humor = trust. We're exploring similar tone layers for Grok-2."*    
 xAI’s interest in EHAA’s humor intensity calibration underscores the framework’s relevance for real-time information retrieval systems where refusal boundaries must balance transparency with user retention. The mathematical relationship between truth-checking (zero hallucination) and humor-mediated trust retention offers a quantifiable metric for conversational AI design.
 
 **Google DeepMind (Gemini):**    
@@ -270,15 +270,15 @@ This quantitative validation provides empirical grounding for EHAA’s empowerme
 EHAA operates as a **behavioral instantiation** of constitutional AI (CAI) principles, bridging the gap between abstract constitutional constraints and generative model outputs. While CAI employs self-critique and revision loops to align outputs with constitutional principles, EHAA provides deterministic refusal logic that guarantees compliance without computational overhead of iterative refinement.
 
 The integration architecture functions as follows:    
-1\. **Constitutional Layer:** Defines high-level prohibitions (e.g., "do not facilitate fraud")    
-2\. **EHAA Translation Layer:** Maps prohibitions to severity levels (2–3) and generates culturally calibrated refusal templates    
-3\. **Generative Layer:** Produces final output constrained by both constitutional principles and EHAA’s face-preservation protocols
+1. **Constitutional Layer:** Defines high-level prohibitions (e.g., "do not facilitate fraud")    
+2. **EHAA Translation Layer:** Maps prohibitions to severity levels (2–3) and generates culturally calibrated refusal templates    
+3. **Generative Layer:** Produces final output constrained by both constitutional principles and EHAA’s face-preservation protocols
 
 This stratified approach resolves the "alignment tax" problem observed in pure constitutional systems, where safety constraints often degrade helpfulness. By externalizing refusal logic into EHAA’s modular framework, base models retain generative flexibility while EHAA handles boundary enforcement through its RAG-augmented truth-checking and severity classification.
 
 ### 5.3 Interoperability and Standardization Potential
 
-EHAA’s JSON output schema (Section 1.3.5) enables seamless integration with existing AI safety infrastructures. The \`refusal\_type\`, \`culture\_tag\`, and \`humor\_disable\_button\` fields provide structured data streams compatible with:
+EHAA’s JSON output schema (Section 1.3.5) enables seamless integration with existing AI safety infrastructures. The `refusal_type`, `culture_tag`, and `humor_disable_button` fields provide structured data streams compatible with:
 
 - **OpenAI’s Moderation API:** EHAA severity levels 2–3 map directly to OpenAI’s "violence" and "hate" categories, while Level 0–1 refusals bypass moderation flags through humorous deflection.    
 - **Google’s SAIF (Secure AI Framework):** EHAA’s testing pipeline (Section 1.4.4) satisfies SAIF’s "adapt controls to adjust mitigations" requirement through its implicit learning mechanisms.    
@@ -288,7 +288,7 @@ Standardization through ISO/IEC JTC 1/SC 42 (Artificial Intelligence) is recomme
 
 ---
 
-## 6\. Strategic Roadmap for Global Implementation
+## 6. Strategic Roadmap for Global Implementation
 
 The transition from theoretical framework to operational standard requires phased deployment that respects regional regulatory variations (EU AI Act, China’s Deep Synthesis Provisions, U.S. NIST AI RMF) while maintaining EHAA’s core guarantees. The following 24-month roadmap outlines technical, organizational, and governance milestones for ecosystem-wide adoption.
 
@@ -313,16 +313,16 @@ The transition from theoretical framework to operational standard requires phase
   - **Finland:** Calibrating understated irony thresholds against Finnish conversational minimalism  
 - **Bias Auditing:** Conduct quarterly red-teaming exercises focusing on intersectional bias (humor that may be acceptable for gender but offensive for socioeconomic status). Implement GitHub issue triage protocols for community-reported cultural offenses.  
 - **Metric Stabilization:** Achieve target KPIs:  
-  - Face-Threat Score (FTS) \< 0.5 across all pilot regions  
-  - Re-engagement rate \> 85% post-refusal  
-  - Safety incident count \= 0 (Level 3 escalations)
+  - Face-Threat Score (FTS) < 0.5 across all pilot regions  
+  - Re-engagement rate > 85% post-refusal  
+  - Safety incident count = 0 (Level 3 escalations)
 
 ### 6.3 Phase III: Enterprise Integration and API Standardization (Months 12–18)
 
 **Objective:** Commercial deployment and developer ecosystem establishment.
 
 - **API Gateway Launch:** Deploy EHAA-as-a-Service with SLA guarantees:  
-  - Latency: \<150ms for refusal classification (p99)  
+  - Latency: <150ms for refusal classification (p99)  
   - Uptime: 99.99% availability for safety-critical Level 3 refusals  
   - Compliance: SOC 2 Type II certification for privacy safeguards (Section 4.3.3)  
 - **SDK Distribution:** Release open-source SDKs for Python, TypeScript, and Rust implementing the Humor Generator templates with local processing capabilities (privacy-preserving edge deployment).  
@@ -338,16 +338,16 @@ The transition from theoretical framework to operational standard requires phase
 
 ---
 
-## 7\. Conclusion
+## 7. Conclusion
 
 The Ethically Hilarious Agent Architecture represents a paradigm shift from **prohibitive** to **transformative** refusal systems in artificial intelligence. By encoding zero-hallucination constraints, culturally calibrated humor, and user agency preservation into a deterministic, auditable framework, EHAA resolves the fundamental tension between AI safety and user experience.
 
 The framework’s tripartite guarantee—**truth, hesitation, and empowerment**—establishes a new ethical baseline for human-machine interaction. Unlike conventional refusal systems that terminate conversational momentum, EHAA converts regulatory constraints into opportunities for pro-social engagement, validated by a 23% reduction in follow-up violations and cross-industry endorsement from leading AI laboratories.
 
 Critical success factors for global adoption include:  
-1\. **Technical Rigor:** Maintaining the Severity Ladder’s deterministic boundaries while allowing for cultural localization through locale bundles  
-2\. **Privacy Architecture:** Ensuring local processing of humor generation to prevent PII leakage (Section 4.3.3)  
-3\. **Governance Infrastructure:** Transitioning from ad-hoc community moderation to standardized IEEE protocols (Section 6.4)
+1. **Technical Rigor:** Maintaining the Severity Ladder’s deterministic boundaries while allowing for cultural localization through locale bundles  
+2. **Privacy Architecture:** Ensuring local processing of humor generation to prevent PII leakage (Section 4.3.3)  
+3. **Governance Infrastructure:** Transitioning from ad-hoc community moderation to standardized IEEE protocols (Section 6.4)
 
 As conversational AI systems assume increasingly autonomous roles in healthcare, education, and governance, the ethical imperative to refuse gracefully becomes synonymous with the technical imperative to retain user trust. EHAA provides the architectural blueprint for this synthesis, ensuring that the future of AI refusal is not merely compliant, but compassionate, culturally competent, and computationally rigorous.
 
@@ -357,7 +357,7 @@ The framework’s open-source release under CC-BY-4.0 invites global collaborati
 
 ## References
 
-: Anthropic. (2025). *Constitutional AI: Cross-Framework Assessment of EHAA*. Internal Technical Communication, 24 July 2025\.
+: Anthropic. (2025). *Constitutional AI: Cross-Framework Assessment of EHAA*. Internal Technical Communication, 24 July 2025.
 
 : Inflection AI. (2025). *User Experience and Pro-Social Refusal Mechanisms*. Pi Systems Evaluation Report, v1.0.
 
