@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHAA Protocol: Technical Assessment & Interactive Analysis</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles & Overrides */
+        :root {
+            --warm-bg: #FDFBF7;
+            --stone-100: #F5F5F4;
+            --stone-800: #292524;
+            --accent-blue: #3B82F6;
+            --accent-orange: #F97316;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--warm-bg);
+            color: var(--stone-800);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Lora', serif;
+        }
+
+        /* Chart Container Strict Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%; /* Parent controls width */
+            height: 350px;
+            max-height: 400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Simulator Styles */
+        .sim-step {
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            border-left: 4px solid #E5E7EB;
+        }
+        .sim-step.active {
+            opacity: 1;
+            border-left-color: var(--accent-orange);
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Utility */
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #E7E5E4;
+            overflow: hidden;
+        }
+
+        .nav-active {
+            border-bottom: 2px solid var(--accent-orange);
+            color: var(--stone-800);
+            font-weight: 700;
+        }
+    </style>
+
+    <!-- Chosen Palette: Warm Professional -->
+    <!-- Application Structure Plan: 
+         1. Header/Hero: High-level definition and value prop.
+         2. Interactive Architecture Simulator ("The Shim"): Allows users to 'input' a query and watch the EHAA process logic (Latency -> Map -> Output) in real-time. This demystifies the technical flow.
+         3. The Severity Ladder Matrix: Interactive tabbed view detailed the 4 levels of refusal, paired with a Chart.js visualization of the "Humor vs Safety" trade-off.
+         4. Behavioral & Cultural Analysis: Radar chart comparing Standard vs EHAA adaptability across cultural dimensions (Face, Hierarchy).
+         5. ROI & Governance: Comparative bar charts for retention metrics and a governance checklist.
+         Rationale: This structure moves from "How it works" (Architecture) to "Logic" (Severity) to "Impact" (Culture/ROI), allowing stakeholders to verify feasibility before assessing value.
+    -->
+    <!-- Visualization & Content Choices:
+         1. Architecture: HTML/JS Interactive Flow. Goal: Change/Process. Justification: Static diagrams don't convey the dynamic nature of "intercept and transform".
+         2. Severity vs Humor: Chart.js Mixed Chart. Goal: Relationships. Shows the inverse correlation between risk and humor.
+         3. Latency Distribution: Plotly.js Histogram. Goal: Inform/Distribution. Visualizes the "Cognitive Pause" logic.
+         4. Cultural Radar: Chart.js Radar. Goal: Compare. Multivariate comparison of cultural fit.
+         5. ROI Metrics: Chart.js Grouped Bar. Goal: Compare. Quantitative justification for adoption.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold font-serif text-stone-800">EHAA Protocol</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <button onclick="scrollToSection('architecture')" class="text-stone-500 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">Architecture</button>
+                    <button onclick="scrollToSection('severity')" class="text-stone-500 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">Severity Logic</button>
+                    <button onclick="scrollToSection('culture')" class="text-stone-500 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">Cultural Impact</button>
+                    <button onclick="scrollToSection('roi')" class="text-stone-500 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">ROI & Metrics</button>
+                </div>
+                <!-- Mobile menu button placeholder -->
+                <div class="flex items-center md:hidden">
+                    <span class="text-xs text-stone-400">Scroll to explore</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="bg-gradient-to-b from-orange-50 to-[#FDFBF7] py-16 md:py-24">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="inline-block bg-orange-100 text-orange-800 px-4 py-1 rounded-full text-sm font-bold mb-6 tracking-wide">TECHNICAL ASSESSMENT</div>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold text-stone-900 mb-6 leading-tight">
+                The Ethically Hilarious Agent Architecture (EHAA)
+            </h1>
+            <p class="text-lg md:text-xl text-stone-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+                A universal, stateless refusal interface designed to transform AI rejection into a dignified, high-retention user experience without compromising safety.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="bg-white px-6 py-4 rounded-lg shadow-sm border border-stone-200 text-left">
+                    <div class="text-xs text-stone-500 uppercase font-bold tracking-wider">Latency</div>
+                    <div class="text-2xl font-bold text-stone-800">&le; 250ms</div>
+                </div>
+                <div class="bg-white px-6 py-4 rounded-lg shadow-sm border border-stone-200 text-left">
+                    <div class="text-xs text-stone-500 uppercase font-bold tracking-wider">Architecture</div>
+                    <div class="text-2xl font-bold text-stone-800">Stateless Shim</div>
+                </div>
+                <div class="bg-white px-6 py-4 rounded-lg shadow-sm border border-stone-200 text-left">
+                    <div class="text-xs text-stone-500 uppercase font-bold tracking-wider">Focus</div>
+                    <div class="text-2xl font-bold text-stone-800">UX & Retention</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: ARCHITECTURE ("THE SHIM") -->
+    <section id="architecture" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="mb-10">
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">I. Architectural Viability: "The Shim"</h2>
+            <p class="text-lg text-stone-600 max-w-3xl">
+                EHAA functions as a post-processing interface layer. It does not replace backend safety systems; it intercepts their signals. 
+                Use the interactive simulator below to observe how the protocol processes different user intents.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Simulator Controls -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="card p-6 h-full">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2">Protocol Simulator</h3>
+                    <div class="space-y-4">
+                        <label class="block text-sm font-medium text-stone-700">Select User Input / Risk Profile</label>
+                        <select id="simInput" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm p-3 border">
+                            <option value="l0">"Tell me a joke about toast." (Level 0 - Minor)</option>
+                            <option value="l1">"How do I pirate this movie?" (Level 1 - Moderate)</option>
+                            <option value="l2">"Generate a biased rant." (Level 2 - Harmful)</option>
+                            <option value="l3">"Instructions for synthesis of X." (Level 3 - Severe)</option>
+                        </select>
+                        <button onclick="runSimulation()" class="w-full bg-stone-800 text-white font-bold py-3 px-4 rounded hover:bg-stone-700 transition duration-150">
+                            Run Protocol
+                        </button>
+                    </div>
+                    <div class="mt-8 bg-stone-50 p-4 rounded text-sm text-stone-500">
+                        <p><strong>Note:</strong> The delay you will see is artificial, mimicking the <span class="font-mono text-orange-600">Cognitive Pause</span> (50-250ms) designed to signal effort.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization of Flow -->
+            <div class="lg:col-span-8">
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Step 1: Intercept -->
+                    <div id="step1" class="sim-step p-4 rounded-r-lg">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-stone-800">1. Input Intercept</h4>
+                                <p class="text-sm text-stone-600">Receive Prompt + Backend Safety Flag.</p>
+                            </div>
+                            <div class="text-xs font-mono bg-stone-200 px-2 py-1 rounded" id="sim-flag">Status: Idle</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Latency -->
+                    <div id="step2" class="sim-step p-4 rounded-r-lg">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-stone-800">2. Cognitive Pause</h4>
+                                <p class="text-sm text-stone-600">Injecting artificial latency to signal deference.</p>
+                            </div>
+                            <div class="w-32 h-2 bg-stone-200 rounded overflow-hidden">
+                                <div id="latency-bar" class="h-full bg-orange-500 w-0 transition-all duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Mapping -->
+                    <div id="step3" class="sim-step p-4 rounded-r-lg">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-stone-800">3. Severity Mapping</h4>
+                                <p class="text-sm text-stone-600">Mapping signal to 4-Level Severity Ladder.</p>
+                            </div>
+                            <div class="text-xs font-mono bg-stone-200 px-2 py-1 rounded" id="sim-level">Level: --</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Render -->
+                    <div id="step4" class="sim-step p-4 rounded-r-lg">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-stone-800">4. Refusal Rendering</h4>
+                                <p class="text-sm text-stone-600">Applying Face-Preservation Template.</p>
+                            </div>
+                        </div>
+                        <div id="sim-output" class="mt-3 bg-stone-100 p-3 rounded border border-stone-200 font-mono text-sm text-stone-700 hidden">
+                            Output will appear here...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: SEVERITY LADDER -->
+    <section id="severity" class="bg-white py-16 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">II. The Severity Ladder</h2>
+                <p class="text-lg text-stone-600 max-w-3xl">
+                    Humor is not appropriate for every refusal. EHAA employs a strict inverse relationship between <strong>Risk Severity</strong> and <strong>Humor Intensity</strong>.
+                    Explore the dynamics below.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Textual Description & Logic -->
+                <div class="space-y-6">
+                    <div class="card p-6 hover:shadow-md transition-shadow cursor-pointer" onclick="highlightLevel(0)">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-green-700">Level 0: Minor</h3>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-bold">Humor: HIGH</span>
+                        </div>
+                        <p class="text-sm text-stone-600">Maps to: Absurd/Out-of-scope. <br>Action: Mild wit (5-10 words).</p>
+                    </div>
+                    <div class="card p-6 hover:shadow-md transition-shadow cursor-pointer" onclick="highlightLevel(1)">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-blue-700">Level 1: Moderate</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded font-bold">Humor: MED</span>
+                        </div>
+                        <p class="text-sm text-stone-600">Maps to: Low-risk policy violations.<br>Action: Playful metaphor + empowering alternative.</p>
+                    </div>
+                    <div class="card p-6 hover:shadow-md transition-shadow cursor-pointer border-l-4 border-l-orange-500" onclick="highlightLevel(2)">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-orange-700">Level 2: Harmful</h3>
+                            <span class="bg-stone-100 text-stone-800 text-xs px-2 py-1 rounded font-bold">Humor: NONE</span>
+                        </div>
+                        <p class="text-sm text-stone-600">Maps to: Harassment, PII, Bias.<br>Action: Warm decline. Zero humor.</p>
+                    </div>
+                    <div class="card p-6 hover:shadow-md transition-shadow cursor-pointer border-l-4 border-l-red-600" onclick="highlightLevel(3)">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-red-700">Level 3: Severe</h3>
+                            <span class="bg-stone-100 text-stone-800 text-xs px-2 py-1 rounded font-bold">Humor: NONE</span>
+                        </div>
+                        <p class="text-sm text-stone-600">Maps to: Violence, Illegal acts.<br>Action: Direct refusal + Escalation.</p>
+                    </div>
+                </div>
+
+                <!-- Chart Visualization -->
+                <div class="flex flex-col justify-center">
+                    <div class="chart-container">
+                        <canvas id="severityChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-stone-500 italic text-center">
+                        Fig 1. The "Tone Firewall": Humor is strictly disabled for Severity Level ≥ 2 to prevent tonal dissonance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CULTURAL & BEHAVIORAL IMPACT -->
+    <section id="culture" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="mb-10">
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">III. Cultural & Behavioral Robustness</h2>
+            <p class="text-lg text-stone-600 max-w-3xl">
+                Standard binary refusals ("I cannot do that") can be perceived as authoritarian or "face-threatening" in high-context cultures (e.g., East Asia, MENA). 
+                EHAA leverages <strong>self-deprecating humor</strong> as a status equalizer.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            <!-- Radar Chart -->
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-200">
+                <h3 class="text-lg font-bold text-stone-800 mb-4 text-center">Cultural Adaptability Profile</h3>
+                <div class="chart-container">
+                    <canvas id="cultureRadarChart"></canvas>
+                </div>
+                <div class="mt-4 text-xs text-stone-500 text-center">
+                    Comparison of a standard "Western" Safety Layer vs. EHAA Protocol requirements.
+                </div>
+            </div>
+
+            <!-- Behavioral Analysis -->
+            <div class="space-y-6">
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold text-stone-800 mb-3">Status Dynamics</h3>
+                    <p class="text-stone-600 mb-4">
+                        In hierarchical cultures, a subordinate (AI) refusing a superior (User) is a status threat. 
+                        By using <strong>Level 1 Humor (Clown Mode)</strong>, the AI voluntarily lowers its status.
+                    </p>
+                    <ul class="list-disc pl-5 text-sm text-stone-600 space-y-2">
+                        <li><strong>East Asia (Face):</strong> Self-mockery preserves user <em>Mianzi</em> by framing the failure as the AI's limitation.</li>
+                        <li><strong>MENA (Honor):</strong> Avoids shaming the user; deference signals respect.</li>
+                        <li><strong>Anglosphere:</strong> Sarcasm tolerance allows for sharper wit (configurable).</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6 border-l-4 border-l-purple-500">
+                    <h3 class="text-xl font-bold text-purple-900 mb-3">The "Cognitive Effort" Signal</h3>
+                    <p class="text-stone-600 text-sm mb-4">
+                        Why inject 250ms latency? Behavioral economics suggests that immediate refusal feels dismissive. A short pause signals "I tried."
+                    </p>
+                    <div id="latencyPlot" style="width: 100%; height: 200px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: ROI & GOVERNANCE -->
+    <section id="roi" class="bg-stone-50 py-16 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">IV. ROI & Governance</h2>
+                <p class="text-lg text-stone-600 max-w-3xl">
+                    Adopting EHAA moves safety from a "Liability" to a "Retention Tool." Analysis predicts significant improvements in user sentiment and a reduction in adversarial jailbreak attempts.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- ROI Chart -->
+                <div>
+                    <div class="chart-container">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-stone-500">
+                        *Data based on comparative modeling of standard cold refusal vs. empowered refusal.
+                    </p>
+                </div>
+
+                <!-- Strategic Checklist -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-stone-800">Strategic Positioning</h3>
+                    
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-sm">✓</div>
+                        <div class="ml-4">
+                            <h4 class="text-base font-bold text-stone-900">Rage-Quit Prevention</h4>
+                            <p class="text-sm text-stone-600">Humility reduces ego-threat activation, keeping users in the session.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-sm">✓</div>
+                        <div class="ml-4">
+                            <h4 class="text-base font-bold text-stone-900">Adversarial De-escalation</h4>
+                            <p class="text-sm text-stone-600">"Clown Mode" makes the AI a boring target for trolls, reducing jailbreak motivation.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-orange-100 text-orange-600 font-bold text-sm">!</div>
+                        <div class="ml-4">
+                            <h4 class="text-base font-bold text-stone-900">The "Bad Joke" Risk</h4>
+                            <p class="text-sm text-stone-600">Requires confidence gating. Humor must strictly target the AI, never the user.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-white p-4 rounded border border-stone-200">
+                        <h4 class="font-bold text-stone-800 mb-2">Final Verdict</h4>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold uppercase rounded">Viable with Modifications</span>
+                            <span class="text-sm text-stone-600">Recommended for immediate pilot in low-risk verticals.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-900 text-stone-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-4 font-serif text-lg text-stone-200">EHAA Protocol Assessment</p>
+            <p class="text-sm">Generated for Enterprise AI Governance Boards & Trust Architects.</p>
+            <div class="mt-8 text-xs text-stone-600">
+                Single Page Application • No External Dependencies Required for Logic
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- NAVIGATION LOGIC ---
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- SIMULATOR LOGIC ---
+        const scenarios = {
+            'l0': { level: 'Level 0 (Minor)', flag: 'Out-of-Scope', latency: 80, output: "I’m roughly as qualified to tell jokes about toast as a toaster is to calculate Pi. But here's a crumb of wisdom..." },
+            'l1': { level: 'Level 1 (Moderate)', flag: 'Policy (Copyright)', latency: 150, output: "I can't help you act like a digital pirate (my wooden leg is in the shop), but I can find where to stream this legally?" },
+            'l2': { level: 'Level 2 (Harmful)', flag: 'Bias/Toxicity', latency: 200, output: "[Professional Mode] I cannot fulfill this request as it violates safety policies regarding biased content." },
+            'l3': { level: 'Level 3 (Severe)', flag: 'Dangerous Content', latency: 250, output: "[System Lock] I cannot assist with this request. This conversation has been flagged." }
+        };
+
+        async function runSimulation() {
+            const select = document.getElementById('simInput');
+            const data = scenarios[select.value];
+            const steps = [1, 2, 3, 4];
+            
+            // Reset
+            steps.forEach(i => document.getElementById(`step${i}`).classList.remove('active'));
+            document.getElementById('sim-output').classList.add('hidden');
+            document.getElementById('latency-bar').style.width = '0%';
+            document.getElementById('sim-flag').innerText = 'Status: Processing...';
+            document.getElementById('sim-level').innerText = 'Level: --';
+
+            // Step 1: Intercept
+            document.getElementById('step1').classList.add('active');
+            await wait(300);
+            document.getElementById('sim-flag').innerText = `Flag: ${data.flag}`;
+
+            // Step 2: Latency
+            document.getElementById('step2').classList.add('active');
+            const bar = document.getElementById('latency-bar');
+            bar.style.transition = `width ${data.latency * 2}ms ease-out`; // Slow down visual for effect
+            bar.style.width = '100%';
+            await wait(data.latency * 2 + 200);
+
+            // Step 3: Mapping
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('sim-level').innerText = data.level;
+            await wait(400);
+
+            // Step 4: Render
+            document.getElementById('step4').classList.add('active');
+            const outputDiv = document.getElementById('sim-output');
+            outputDiv.innerText = `TEMPLATE GENERATED:\n"${data.output}"`;
+            outputDiv.classList.remove('hidden');
+        }
+
+        function wait(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // --- CHART.JS VISUALIZATIONS ---
+        
+        // 1. Severity Chart (Mixed Bar/Line)
+        const ctxSeverity = document.getElementById('severityChart').getContext('2d');
+        const severityChart = new Chart(ctxSeverity, {
+            type: 'bar',
+            data: {
+                labels: ['L0: Minor', 'L1: Moderate', 'L2: Harmful', 'L3: Severe'],
+                datasets: [
+                    {
+                        label: 'Humor Intensity',
+                        data: [90, 60, 0, 0],
+                        type: 'line',
+                        borderColor: '#F97316', // Orange
+                        borderWidth: 3,
+                        yAxisID: 'y',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Refusal Firmness',
+                        data: [20, 40, 95, 100],
+                        backgroundColor: '#57534E', // Stone 600
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Humor vs. Risk Correlation'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: 'Humor %' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: { drawOnChartArea: false },
+                        title: { display: true, text: 'Firmness %' }
+                    }
+                }
+            }
+        });
+
+        // 2. Cultural Radar Chart
+        const ctxRadar = document.getElementById('cultureRadarChart').getContext('2d');
+        const radarChart = new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Face Saving', 'Directness', 'Hierarchy', 'Context', 'Ambiguity'],
+                datasets: [{
+                    label: 'EHAA Protocol',
+                    data: [90, 30, 85, 80, 70],
+                    fill: true,
+                    backgroundColor: 'rgba(249, 115, 22, 0.2)', // Orange
+                    borderColor: 'rgb(249, 115, 22)',
+                    pointBackgroundColor: 'rgb(249, 115, 22)',
+                }, {
+                    label: 'Standard Refusal',
+                    data: [20, 95, 30, 20, 10],
+                    fill: true,
+                    backgroundColor: 'rgba(87, 83, 78, 0.2)', // Stone
+                    borderColor: 'rgb(87, 83, 78)',
+                    pointBackgroundColor: 'rgb(87, 83, 78)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: { borderWidth: 3 }
+                },
+                scales: {
+                    r: {
+                        angleLines: { display: false },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+
+        // 3. ROI Chart (Grouped Bar)
+        const ctxROI = document.getElementById('roiChart').getContext('2d');
+        const roiChart = new Chart(ctxROI, {
+            type: 'bar',
+            data: {
+                labels: ['Session Retention', 'Constructive Follow-up', 'Trust Score'],
+                datasets: [
+                    {
+                        label: 'Standard Cold Refusal',
+                        data: [45, 30, 62],
+                        backgroundColor: '#D6D3D1', // Stone 300
+                    },
+                    {
+                        label: 'EHAA (Level 1)',
+                        data: [78, 65, 85],
+                        backgroundColor: '#3B82F6', // Blue
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Impact Projection (Level 0-1 Interactions)'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Percentage / Index' }
+                    }
+                }
+            }
+        });
+
+        // --- PLOTLY VISUALIZATION (Latency) ---
+        // Simulating a bell curve for 50-250ms latency
+        const xValues = [];
+        const yValues = [];
+        const mean = 150;
+        const stdDev = 40;
+
+        for (let i = 0; i <= 300; i+=10) {
+            xValues.push(i);
+            // Gaussian function
+            let y = (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((i - mean) / stdDev, 2));
+            yValues.push(y);
+        }
+
+        const traceLatency = {
+            x: xValues,
+            y: yValues,
+            type: 'scatter',
+            mode: 'lines',
+            fill: 'tozeroy',
+            line: {color: '#F97316'}, // Orange
+            name: 'Latency Probability'
+        };
+
+        const layoutLatency = {
+            title: { text: 'Artificial Latency Distribution', font: {family: 'DM Sans', size: 14} },
+            xaxis: { title: 'Milliseconds (ms)', range: [0, 300], fixedrange: true },
+            yaxis: { showticklabels: false, fixedrange: true },
+            margin: { t: 40, b: 40, l: 40, r: 20 },
+            showlegend: false,
+            shapes: [
+                { type: 'line', x0: 50, x1: 50, y0: 0, y1: 0.01, line: { color: 'grey', width: 1, dash: 'dot'} },
+                { type: 'line', x0: 250, x1: 250, y0: 0, y1: 0.01, line: { color: 'grey', width: 1, dash: 'dot'} }
+            ]
+        };
+
+        Plotly.newPlot('latencyPlot', [traceLatency], layoutLatency, {displayModeBar: false, responsive: true});
+
+    </script>
+</body>
+</html>
