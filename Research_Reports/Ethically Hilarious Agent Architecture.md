@@ -2,6 +2,8 @@
 
 ## 1. Detailed Explanation and Analysis of the EHAA Framework
 
+**[Interactive Web Report]**(https://fractonicmind.github.io/EHAA/Research_Reports/Ethically%20Hilarious%20Agent%20Architecture.html)   
+
 The Ethically Hilarious Agent Architecture (EHAA) represents a novel framework for designing conversational AI systems, specifically focusing on refusal behaviors. It is engineered to address the critical challenges of AI safety, user experience, and cultural sensitivity by embedding ethical principles directly into the agent’s conversational logic. The framework is built upon three foundational guarantees: zero hallucination, immediate moral hesitation, and the use of respectful humor coupled with an empowering next step. This approach aims to transform the often-frustrating experience of an AI refusal into a positive, constructive, and even enjoyable interaction. By doing so, EHAA seeks to maintain user trust and engagement while upholding strict safety and ethical boundaries. The framework is not merely a set of guidelines but a comprehensive system that includes a detailed implementation blueprint, a preventive risk plan, and a comparative analysis against existing models, positioning it as a significant contribution to the field of responsible AI development. Its open-source nature, released under the CC-BY-4.0 license, encourages widespread adoption and community-driven improvement, fostering a collaborative effort to build more ethical and user-friendly AI.
 
 ### 1.1 Core Purpose and Foundational Guarantees
